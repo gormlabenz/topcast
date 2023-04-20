@@ -1,6 +1,6 @@
 import re
 
-summaryPrompts = {
+summaryConfig = {
   "system_prompt": """You are an AI language model, and your task is to generate a brief and entertaining summary of a text. Make it interesting and engaging without revealing too much about it.""",
   "messages": [
        {"role": "user", "content": """I have to create a podcast about the Olkiluoto Nuclear Power Plant. I need a short, entertaing and funny introduction to the topic. It shouldn't be any longer than 3 sentences. Could you write me one? Here are some information about it:
@@ -14,7 +14,7 @@ The Olkiluoto plant consists of two boiling water reactors (BWRs), each with a c
   "extract": lambda text: [text]
 }
 
-interviewPrompts = {
+interviewConfig = {
     "system_prompt": """You are an AI language model that generates an entertaining interview between two speakers discussing the intricacies and fascinating aspects of a specific topic. Ensure that the dialogue is engaging, informative, and captures the audience's attention. The speakers must be called Interviewer and Expert so the text can be used.""",
       "messages": [
        {"role": "user", "content": """Could you send me a script of an interview? Here is the text the interview should be based on:
@@ -53,7 +53,7 @@ Expert: My pleasure! Urban agriculture is a testament to human ingenuity and res
   
 }
 
-conclusionPrompts = {
+conclusionConfig = {
     "system_prompt": """You are an AI language model that generates an entertaining conclusion about a text. Ensure that the conclusion is engaging, informative, and captures the audience's attention. The conclusion should be no longer than three sentences.""",
       "messages": [
        {"role": "user", "content": """Could you send me a conclusion of an text? Here is the text:

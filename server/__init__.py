@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-
-from .openai_classes import OpenAIApiInterview
+from .podcaster import Podcaster
+from .configs import summaryConfig, interviewConfig, conclusionConfig
 
 class Item(BaseModel):
     text: str
@@ -12,7 +12,7 @@ app = FastAPI()
 
 @app.post("/generate_podcast/")
 async def generate_podcast_text(item: Item):
-  
-    result = await OpenAIApiInterview.create_chat_completion(input_message=item.text)
+    podcaster = Podcaster(interviewConfig)
+    result = await podcaster.generate_podcast(input_text=item.text)
     
     return {"result": result}

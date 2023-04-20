@@ -9,7 +9,8 @@ def text_to_speech(text, output_file="output.mp3"):
 
     # Set the voice parameters
     voice = texttospeech.VoiceSelectionParams(
-        language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.FEMALE
+        language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.MALE,
+        name="en-US-Neural2-J"
     )
 
     # Set the audio configuration

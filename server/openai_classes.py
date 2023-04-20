@@ -1,6 +1,7 @@
 import openai
 from fastapi import HTTPException
-from .prompts import summaryPrompts, interviewPrompts, conclusionPrompts
+
+from .tts import text_to_speech
 from typing import Callable
 from dotenv import load_dotenv
 import os 
@@ -38,8 +39,3 @@ class OpenAIApiBase:
         
         return messages
 
-OpenAIApiCreateSummary = OpenAIApiBase(system_prompt=summaryPrompts["system_prompt"], messages=summaryPrompts["messages"], get_message=summaryPrompts["get_message"], extract=summaryPrompts["extract"])
-
-OpenAIApiInterview = OpenAIApiBase(system_prompt=interviewPrompts["system_prompt"], messages=interviewPrompts["messages"], get_message=interviewPrompts["get_message"], extract=interviewPrompts["extract"])
-
-OpenAIApiConclusion = OpenAIApiBase(system_prompt=conclusionPrompts["system_prompt"], messages=conclusionPrompts["messages"], get_message=conclusionPrompts["get_message"], extract=conclusionPrompts["extract"])

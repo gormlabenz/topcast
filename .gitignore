@@ -160,3 +160,5 @@ cython_debug/
 #.idea/
 gcp-keyfile.json
 *.mp3
+*.wav
+sound/*

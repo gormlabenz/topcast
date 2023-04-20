@@ -1,28 +1,23 @@
 import os
 from google.cloud import texttospeech
+from .models import TTSItem
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gcp-keyfile.json"
 
 
-def text_to_speech(text, output_file="output.mp3"):
+def text_to_speech(ttsItem: TTSItem):
     client = texttospeech.TextToSpeechClient()
-
-    # Set the voice parameters
-    voice = texttospeech.VoiceSelectionParams(
-        language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.MALE,
-        name="en-US-Neural2-J"
-    )
 
     # Set the audio configuration
     audio_config = texttospeech.AudioConfig(
-        audio_encoding=texttospeech.AudioEncoding.MP3
+        audio_encoding=texttospeech.AudioEncoding.LINEAR16
     )
 
     # Iterate through the list of strings, convert each to speech, and save the result to the output file
-    with open(output_file, "wb") as f:
-        input_text = texttospeech.SynthesisInput(text=text)
+    with open(f"sound/{ttsItem['file_name']}", "wb") as f:
+        input_text = texttospeech.SynthesisInput(text=ttsItem["text"])
         response = client.synthesize_speech(
-            input=input_text, voice=voice, audio_config=audio_config
+            input=input_text, voice=ttsItem["voice"], audio_config=audio_config
         )
         f.write(response.audio_content)
 

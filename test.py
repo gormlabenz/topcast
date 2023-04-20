@@ -2,7 +2,6 @@ from server import app
 from fastapi.testclient import TestClient
 
 
-
 def test_generate_podcast_text():
     client = TestClient(app)
     response = client.post("/generate_podcast/", json={"text": """

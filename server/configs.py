@@ -1,4 +1,5 @@
 import re
+from google.cloud import texttospeech
 
 summaryConfig = {
   "system_prompt": """You are an AI language model, and your task is to generate a brief and entertaining summary of a text. Make it interesting and engaging without revealing too much about it.""",
@@ -11,7 +12,7 @@ The Olkiluoto plant consists of two boiling water reactors (BWRs), each with a c
            {"role": "assistant", "content": """Welcome to our podcast, where we'll dive into the fascinating world of Finland's Olkiluoto Nuclear Power Plant - home to Europe's strongest reactor, the Energizer Bunny of the nuclear world, and just a hop, skip, and a jump from the bustling metropolis of Pori!"""}
   ],
   "get_message": lambda input_message: f"""Could you write another summary? Here are some information about it: {input_message}""",
-  "extract": lambda text: [text]
+  "extract": lambda text: extract_summary(text=text),
 }
 
 interviewConfig = {
@@ -49,7 +50,7 @@ Interviewer: Thank you, Dr. Green, for sharing your knowledge about the history 
 Expert: My pleasure! Urban agriculture is a testament to human ingenuity and resilience. It's a fascinating subject that continues to evolve and has the potential to shape our future in sustainable ways."""}
   ],
   "get_message": lambda input_message: f"""Could you send me another interview? Here are some information about it: {input_message}""",
-  "extract": lambda text: extract_interview_text(text=text),
+  "extract": lambda text: extract_interview(text=text),
   
 }
 
@@ -70,11 +71,51 @@ A very similar practice came into use during the Great Depression that provided 
   {input_message}
   
   """,
-    "extract": lambda text: [text]
+  "extract": lambda text: extract_conclusion(text=text),
     }
 
-def extract_interview_text(text: str) -> list:
+def extract_summary(text:str):
+  voice1 = texttospeech.VoiceSelectionParams(
+      language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.MALE,
+      name="en-US-Neural2-J"
+  )
+      
+  return [{
+      "text" : text , 
+      "file_name": f"{text[:10]}.wav", 
+      "voice": voice1
+      }]
+
+def extract_interview(text: str) -> list:
+  # Set the voice parameters
+    voice1 = texttospeech.VoiceSelectionParams(
+        language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.MALE,
+        name="en-US-Neural2-J"
+    )
+    
+    voice2 = texttospeech.VoiceSelectionParams(
+        language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.FEMALE,
+        name="en-US-Neural2-C"
+    )
+    
     pattern = r"(Interviewer|Expert): (.*?)\n"
     matches = re.findall(pattern, text, re.MULTILINE)
-    extracted_text = [match[1] for match in matches]
+    extracted_text = [{
+      "text" : match[1] , 
+      "file_name": f"{match[1][:10]}.wav", 
+      "voice": voice1 if match[0] == "Interviewer" else voice2
+      } for match in matches]
+    
     return extracted_text
+
+def extract_conclusion(text:str):
+  voice1 = texttospeech.VoiceSelectionParams(
+      language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.MALE,
+      name="en-US-Neural2-J"
+  )
+      
+  return [{
+      "text" : text , 
+      "file_name": f"{text[:10]}.wav", 
+      "voice": voice1
+      }]

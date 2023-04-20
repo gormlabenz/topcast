@@ -21,12 +21,11 @@ class OpenAIApiBase:
     async def create_chat_completion(self, input_message: str):
         try:
             messages = self.get_messages(input_message)
-            print("create")
+            print("fetching")
             completion = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=messages
             )
-            print("response" , completion.choices[0].message)
 
             return self.extract(completion.choices[0].message.content)
         except Exception as e:

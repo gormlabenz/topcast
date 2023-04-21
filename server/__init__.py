@@ -20,11 +20,11 @@ app = FastAPI()
 class Item(BaseModel):
     text: str
     name: Optional[str] = None
-    tts_provider: Optional[str] = "gcp"
+    tts_provider: Optional[str] = None
 
 class SearchTerm(BaseModel):
     term: str
-    tts_provider: Optional[str] = "gcp"
+    tts_provider: Optional[str] = None
 
 @app.post("/wikipedia/")
 async def generate_podcast_wikipedia(search_term: SearchTerm):
@@ -51,9 +51,9 @@ async def generate_podcast_text(item: Item):
         conclusion_chunk = PodcastChunk(conclusion_config)
 
         tasks = [
-            intro_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="elevenlabs"),
-            interview_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="gcp"),
-            conclusion_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="elevenlabs")
+            intro_chunk.generate_podcast_chunk(input_text=item.text, tts_provider=item.tts_provider if item.tts_provider else "elevenlabs" ),
+            interview_chunk.generate_podcast_chunk(input_text=item.text, tts_provider=item.tts_provider if item.tts_provider else "gcp" ),
+            conclusion_chunk.generate_podcast_chunk(input_text=item.text, tts_provider=item.tts_provider if item.tts_provider else "elevenlabs" )
         ]
         
         timeline = LongTimeline

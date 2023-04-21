@@ -19,6 +19,7 @@ app = FastAPI()
 
 class Item(BaseModel):
     text: str
+    name: Optional[str] = None
     tts_provider: Optional[str] = "gcp"
 
 class SearchTerm(BaseModel):
@@ -35,9 +36,7 @@ async def generate_podcast_wikipedia(search_term: SearchTerm):
 
     summary = page.summary[0:1000]  # Get the first 1000 characters of the summary
     
-    return {"summary": summary}
-
-    item = Item(text=summary, tts_provider=search_term.tts_provider)
+    item = Item(text=summary, tts_provider=search_term.tts_provider, name=search_term.term)
     return await generate_podcast_text(item=item)
 
 @app.post("/generate_podcast/")
@@ -68,6 +67,8 @@ async def generate_podcast_text(item: Item):
     
     audio_list = await asyncio.gather(*tasks)
     podcast_builder = PodcastBuilder(timeline.get_timeline(audio_list))
-    output_file = podcast_builder.build(output_file='sounds/podcast.wav')
+    
+    file_name = item.name if item.name else str(time.time())
+    output_file = podcast_builder.build(output_file=f'podcasts/{file_name}.wav')
     
     return {"result": output_file}

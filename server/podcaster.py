@@ -3,6 +3,7 @@ from .tts import text_to_speech
 import os
 from pydub import AudioSegment
 from io import BytesIO
+import asyncio
 
 sound_folder = "sounds/"
 
@@ -16,10 +17,11 @@ class Podcaster:
         # Initialize an empty AudioSegment
         combined_audio = AudioSegment.empty()
 
-        for textItem in textItems:
-            print("textItem: ", textItem)
-            speech = text_to_speech(textItem)
-            
+        # Run text_to_speech function concurrently for all textItems
+        tasks = [asyncio.create_task(text_to_speech(textItem)) for textItem in textItems]
+        speech_results = await asyncio.gather(*tasks)
+
+        for speech in speech_results:
             # Convert the audio_content (bytes) to an AudioSegment
             audio_segment = AudioSegment.from_file(BytesIO(speech.audio_content), format="wav")
             

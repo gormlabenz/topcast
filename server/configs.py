@@ -1,5 +1,4 @@
 import re
-from .voices import VoiceMale, VoiceFemale
 
 summary_config = {
   "system_prompt": """You are an AI language model, and your task is to generate a brief and entertaining summary of a text. Make it interesting and engaging without revealing too much about it.""",
@@ -77,8 +76,7 @@ A very similar practice came into use during the Great Depression that provided 
 def extract_summary(text:str): 
   return [{
       "text" : text , 
-      "file_name": f"{text[:10]}.wav", 
-      "voice": VoiceMale
+      "gender": "male"
       }]
 
 def extract_interview(text: str) -> list:
@@ -86,8 +84,7 @@ def extract_interview(text: str) -> list:
     matches = re.findall(pattern, text, re.MULTILINE)
     extracted_text = [{
       "text" : match[1] , 
-      "file_name": f"{match[1][:10]}.wav", 
-      "voice": VoiceMale if match[0] == "Interviewer" else VoiceFemale
+      "gender": "male" if match[0] == "Interviewer" else "female"
       } for match in matches]
     
     return extracted_text
@@ -95,6 +92,5 @@ def extract_interview(text: str) -> list:
 def extract_conclusion(text:str):
       return [{
       "text" : text , 
-      "file_name": f"{text[:10]}.wav", 
-      "voice": VoiceMale
+      "gender": "male"
       }]

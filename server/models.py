@@ -1,14 +1,7 @@
 from pydantic import BaseModel
-from google.cloud import texttospeech
+from typing import Optional
 
 class InputData(BaseModel):
     system_prompt: str
     conversation: list
-
-class TTSItem(BaseModel):
-    text: str
-    filename: str
-    voice: texttospeech.VoiceSelectionParams
-    
-    class Config:
-        arbitrary_types_allowed = True
+    tts_provider: Optional[str] = "gcp"

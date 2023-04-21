@@ -30,6 +30,8 @@ async def generate_podcast_wikipedia(search_term: SearchTerm):
         return {"error": f"Page not found for the search term '{search_term.term}'"}
 
     summary = page.summary[0:1000]  # Get the first 1000 characters of the summary
+    
+    return {"summary": summary}
 
     item = Item(text=summary, tts_provider=search_term.tts_provider)
     return await generate_podcast_text(item=item)

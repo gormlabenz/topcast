@@ -92,5 +92,5 @@ def extract_interview(text: str) -> list:
 def extract_conclusion(text:str):
       return [{
       "text" : text , 
-      "gender": "male"
+      "gender": "female"
       }]

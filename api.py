@@ -4,7 +4,7 @@ from server import app
 
 def test_generate_podcast_text():
     client = TestClient(app)
-    response = client.post("/generate_podcast/", json={"tts_provider":"elevenlabs", 
+    response = client.post("/generate_podcast/", json={"tts_provider":"gcp",
         "text": """
 Gorm is the reported son of semi-legendary Danish king Harthacnut. Chronicler Adam of Bremen says that Harthacnut came from Northmannia to Denmark and seized power in the early 10th century.[6] He deposed the young king Sigtrygg Gnupasson, reigning over Western Denmark.[3] When Harthacnut died, Gorm ascended the throne.
 

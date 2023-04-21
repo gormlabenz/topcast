@@ -1,5 +1,6 @@
 from pydub import AudioSegment
 from typing import List, Dict
+from io import BytesIO
 
 class PodcastBuilder:
     def __init__(self, timeline: List[Dict]):
@@ -13,7 +14,10 @@ class PodcastBuilder:
             overlays = []
 
             for audio_item in step["audio"]:
-                audio = AudioSegment.from_file(audio_item["audio"])
+                if type(audio_item["audio"]) == str:
+                    audio = AudioSegment.from_file(audio_item["audio"])
+                else:
+                    audio = audio_item["audio"]
 
                 if audio_item["is_main"]:
                     main_audio = audio
@@ -31,7 +35,7 @@ class PodcastBuilder:
                 for overlay in overlays:
                     if len(step_audio) == 0:
                         step_audio = AudioSegment.silent(duration=len(overlay))
-                    step_audio = step_audio.overlay(overlay)
+                    step_audio = step_audio.overlay(overlay, loop=True)
                     
 
                 
@@ -91,6 +95,7 @@ timeline = [
 ]
 
 # Example usage:
-builder = PodcastBuilder(timeline)
+""" builder = PodcastBuilder(timeline)
 output_file = builder.build()
 print(f"The podcast has been generated and saved to {output_file}.")
+ """

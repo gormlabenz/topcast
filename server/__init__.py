@@ -6,9 +6,11 @@ from wikipediaapi import Wikipedia
 import time 
 
 from .podcast_chunk import PodcastChunk
-from .configs import summary_config, interview_config, conclusion_config
+from .configs import intro_config, interview_config, conclusion_config, summary_config
 from .podcast_builder import PodcastBuilder
+
 from .timeline.long_timeline import LongTimeline
+from .timeline.short_timeline import ShortTimeline
 
 sound_folder = "sounds/"
 output_file="interview.wav"
@@ -40,20 +42,32 @@ async def generate_podcast_wikipedia(search_term: SearchTerm):
 
 @app.post("/generate_podcast/")
 async def generate_podcast_text(item: Item):
-    summary_chunk = PodcastChunk(summary_config)
-    interview_chunk = PodcastChunk(interview_config)
-    conclusion_chunk = PodcastChunk(conclusion_config)
     
-    tasks = [
-        summary_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="elevenlabs"),
-        interview_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="gcp"),
-        conclusion_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="elevenlabs")
-    ]
+    tasks = []
+    timeline = None
+    
+    if len(item.text) > 400:
+        intro_chunk = PodcastChunk(intro_config)
+        interview_chunk = PodcastChunk(interview_config)
+        conclusion_chunk = PodcastChunk(conclusion_config)
+
+        tasks = [
+            intro_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="elevenlabs"),
+            interview_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="gcp"),
+            conclusion_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="elevenlabs")
+        ]
+        
+        timeline = LongTimeline
+    else:
+        summary_chunk = PodcastChunk(summary_config)
+        tasks = [
+            summary_chunk.generate_podcast_chunk(input_text=item.text, tts_provider="elevenlabs")
+        ]
+        timeline = ShortTimeline
+        
     
     audio_list = await asyncio.gather(*tasks)
-
-    podcast_builder = PodcastBuilder(LongTimeline.get_timeline(audio_list))
-    
+    podcast_builder = PodcastBuilder(timeline.get_timeline(audio_list))
     output_file = podcast_builder.build(output_file='sounds/podcast.wav')
     
     return {"result": output_file}

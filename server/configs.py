@@ -1,5 +1,5 @@
 import re
-from google.cloud import texttospeech
+from .voices import voiceMale, VoiceFemale
 
 summaryConfig = {
   "system_prompt": """You are an AI language model, and your task is to generate a brief and entertaining summary of a text. Make it interesting and engaging without revealing too much about it.""",
@@ -74,48 +74,27 @@ A very similar practice came into use during the Great Depression that provided 
   "extract": lambda text: extract_conclusion(text=text),
     }
 
-def extract_summary(text:str):
-  voice1 = texttospeech.VoiceSelectionParams(
-      language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.MALE,
-      name="en-US-Neural2-J"
-  )
-      
+def extract_summary(text:str): 
   return [{
       "text" : text , 
       "file_name": f"{text[:10]}.wav", 
-      "voice": voice1
+      "voice": voiceMale
       }]
 
 def extract_interview(text: str) -> list:
-  # Set the voice parameters
-    voice1 = texttospeech.VoiceSelectionParams(
-        language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.MALE,
-        name="en-US-Neural2-J"
-    )
-    
-    voice2 = texttospeech.VoiceSelectionParams(
-        language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.FEMALE,
-        name="en-US-Neural2-C"
-    )
-    
     pattern = r"(Interviewer|Expert): (.*?)\n"
     matches = re.findall(pattern, text, re.MULTILINE)
     extracted_text = [{
       "text" : match[1] , 
       "file_name": f"{match[1][:10]}.wav", 
-      "voice": voice1 if match[0] == "Interviewer" else voice2
+      "voice": voiceMale if match[0] == "Interviewer" else VoiceFemale
       } for match in matches]
     
     return extracted_text
 
 def extract_conclusion(text:str):
-  voice1 = texttospeech.VoiceSelectionParams(
-      language_code="en-US", ssml_gender=texttospeech.SsmlVoiceGender.MALE,
-      name="en-US-Neural2-J"
-  )
-      
-  return [{
+      return [{
       "text" : text , 
       "file_name": f"{text[:10]}.wav", 
-      "voice": voice1
+      "voice": voiceMale
       }]

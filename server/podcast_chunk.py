@@ -11,7 +11,7 @@ class PodcastChunk:
     def __init__(self, config):
         self.openai_api_base = OpenAIApiBase(config["system_prompt"], config["messages"], config["get_message"], config["extract"])
 
-    async def generate_podcast(self, input_text: str, output_file="output.wav", tts_provider="gcp"):
+    async def generate_podcast_chunk(self, input_text: str, output_file="output.wav", tts_provider="gcp"):
         textItems = await self.openai_api_base.create_chat_completion(input_text)
         
         ttsProvider = get_tts_provider(tts_provider)

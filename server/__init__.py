@@ -14,6 +14,6 @@ app = FastAPI()
 @app.post("/generate_podcast/")
 async def generate_podcast_text(item: Item):
     podcastChunk = PodcastChunk(summary_config)
-    result = await podcastChunk.generate_podcast(input_text=item.text, tts_provider=item.tts_provider)
+    result = await podcastChunk.generate_podcast_chunk(input_text=item.text, tts_provider=item.tts_provider)
     
     return {"result": result}

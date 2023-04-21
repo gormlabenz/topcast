@@ -1,15 +1,12 @@
 import openai
 from fastapi import HTTPException
 
-from .tts import text_to_speech
 from typing import Callable
 from dotenv import load_dotenv
 import os 
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
 load_dotenv()
-
-print("openai.api_key", openai.api_key, os.getenv("OPENAI_API_KEY"))
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 class OpenAIApiBase:
     def __init__(self, system_prompt: str, messages: list, get_message: Callable, extract: Callable):

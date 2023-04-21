@@ -18,6 +18,3 @@ def text_to_speech(ttsItem: TTSItem):
             input=input_text, voice=ttsItem["voice"], audio_config=audio_config
         )
 
-
-if __name__ == "__main__":
-  text_to_speech("This is the first string.")

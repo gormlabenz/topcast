@@ -1,5 +1,5 @@
 import re
-from .voices import voiceMale, VoiceFemale
+from .voices import VoiceMale, VoiceFemale
 
 summaryConfig = {
   "system_prompt": """You are an AI language model, and your task is to generate a brief and entertaining summary of a text. Make it interesting and engaging without revealing too much about it.""",
@@ -78,7 +78,7 @@ def extract_summary(text:str):
   return [{
       "text" : text , 
       "file_name": f"{text[:10]}.wav", 
-      "voice": voiceMale
+      "voice": VoiceMale
       }]
 
 def extract_interview(text: str) -> list:
@@ -87,7 +87,7 @@ def extract_interview(text: str) -> list:
     extracted_text = [{
       "text" : match[1] , 
       "file_name": f"{match[1][:10]}.wav", 
-      "voice": voiceMale if match[0] == "Interviewer" else VoiceFemale
+      "voice": VoiceMale if match[0] == "Interviewer" else VoiceFemale
       } for match in matches]
     
     return extracted_text
@@ -96,5 +96,5 @@ def extract_conclusion(text:str):
       return [{
       "text" : text , 
       "file_name": f"{text[:10]}.wav", 
-      "voice": voiceMale
+      "voice": VoiceMale
       }]

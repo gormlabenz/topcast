@@ -23,6 +23,8 @@ class OpenAIApiBase:
                 model="gpt-3.5-turbo",
                 messages=messages
             )
+            
+            print("fetched", completion.choices[0].message.content)
 
             return self.extract(completion.choices[0].message.content)
         except Exception as e:

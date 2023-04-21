@@ -17,7 +17,7 @@ The Olkiluoto plant consists of two boiling water reactors (BWRs), each with a c
 interview_config = {
     "system_prompt": """You are an AI language model that generates an entertaining interview between two speakers discussing the intricacies and fascinating aspects of a specific topic. Ensure that the dialogue is engaging, informative, and captures the audience's attention. The speakers must be called Interviewer and Expert so the text can be used.""",
       "messages": [
-       {"role": "user", "content": """Could you send me a script of an interview? Here is the text the interview should be based on:
+       {"role": "user", "content": """Could you send me a script of an interview? Please keep in mind, it is very importend that in the script the interviewer must be called Interviewer and the interviewer Expert. Here is the text the interview should be based on:
 
 In Persia's semi-desert towns, oases were fed through aqueducts carrying mountain water to support intensive food production, nurtured by wastes from the communities.[5] In Machu Picchu, water was conserved and reused as part of the stepped architecture of the city, and vegetable beds were designed to gather sun in order to prolong the growing season.[5]
 The idea of supplemental food production beyond rural farming operations and distant imports is not new. It was used during war and depression times when food shortage issues arose, as well as during times of relative abundance. Allotment gardens emerged in Germany in the early 19th century as a response to poverty and food insecurity.[6]
@@ -48,7 +48,7 @@ Interviewer: Thank you, Dr. Green, for sharing your knowledge about the history 
 
 Expert: My pleasure! Urban agriculture is a testament to human ingenuity and resilience. It's a fascinating subject that continues to evolve and has the potential to shape our future in sustainable ways."""}
   ],
-  "get_message": lambda input_message: f"""Could you send me another interview? Here are some information about it: {input_message}""",
+  "get_message": lambda input_message: f"""Could you send me another interview? Please keep in mind, it is very importend that in the script the interviewer must be called Interviewer and the interviewer Expert. Here are some information about it: {input_message}""",
   "extract": lambda text: extract_interview(text=text),
   
 }
@@ -105,6 +105,9 @@ def extract_intro(text:str):
 def extract_interview(text: str) -> list:
     pattern = r"(Interviewer|Expert): (.*?)\n"
     matches = re.findall(pattern, text, re.MULTILINE)
+    
+    print("matches", matches)
+    
     extracted_text = [{
       "text" : match[1] , 
       "gender": "male" if match[0] == "Interviewer" else "female"

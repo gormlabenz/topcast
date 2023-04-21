@@ -7,7 +7,7 @@ import asyncio
 
 sound_folder = "sounds/"
 
-class Podcaster:
+class PodcastChunk:
     def __init__(self, config):
         self.openai_api_base = OpenAIApiBase(config["system_prompt"], config["messages"], config["get_message"], config["extract"])
 

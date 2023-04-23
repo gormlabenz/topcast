@@ -1,9 +1,6 @@
 from topcast.chatgpt_themes import Introduction, Interview, Conclusion, Summary
 from topcast.tts_providers import ElevenLabs, GCP
-from topcast.models import Timeline
-from pydub import AudioSegment
 from topcast.podcaster import Podcaster
-import pprint
 
 timeline = [
     {
@@ -20,15 +17,14 @@ timeline = [
                 "volume": 1
             },
         ],
-        "fade_in": 0,
-        "overlapping": 2400,
+        "fade_in": 1,
+        "crossfade": 2400,
         "fade_out": 1800,
     },
 ]
 
-try:
-    validated_timeline = Timeline(timeline=timeline)
-    t = Podcaster(timeline).generate()
-    pprint.pprint(t)
-except ValueError as e:
-    print(f"Timeline validation error: {e}")
+
+podcast = Podcaster(timeline)
+podcast.generate()
+podcast.save()
+

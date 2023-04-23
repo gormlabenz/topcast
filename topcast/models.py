@@ -43,18 +43,25 @@ class AudioLayer(BaseModel):
     audio: Union[str, AudioSegment, AudioContent]
     data: StepData = None
     is_main: bool = False
-    padding_start: float = Field(0, ge=0)
-    padding_end: float = Field(0, ge=0)
-    volume: float = Field(1, ge=0, le=1)
+    fade_in: int = Field(1, ge=1)
+    fade_out: int = Field(1, ge=1)
+    padding_start: int = Field(0, ge=0)
+    padding_end: int = Field(0, ge=0)
+    crossfade: int = Field(0, ge=0)
+    volume: int = Field(1, ge=0, le=1)
     
     class Config:
         arbitrary_types_allowed = True
         
 class Step(BaseModel):
     audio_layers: List[AudioLayer]
-    fade_in: float = Field(0, ge=0)
-    fade_out: float = Field(0, ge=0)
-    overlapping: float = Field(0, ge=0)
+    fade_in: int = Field(1, ge=1)
+    fade_out: int = Field(1, ge=1)
+    padding_start: int = Field(0, ge=0)
+    padding_end: int = Field(0, ge=0)
+    crossfade: int = Field(0, ge=0)
+    volume: float = Field(1, ge=0, le=1)
+    
 
 class Timeline(BaseModel):
     timeline: List[Step]

@@ -1,12 +1,9 @@
 from .base import TTSProviderBase
 from google.cloud import texttospeech
 import asyncio
-import os
 from topcast.models import TTSText
 from pydub import AudioSegment
 from io import BytesIO
-
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gcp-keyfile.json"
 
 class GCP(TTSProviderBase):
     def __init__(self):

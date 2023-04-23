@@ -1,15 +1,12 @@
 from .base import TTSProviderBase
+from ..models import TTSText
+
 import asyncio
-import os
-from elevenlabs import set_api_key, generate
-from dotenv import load_dotenv
-from topcast.models import TTSText
+from elevenlabs import generate
 from pydub import AudioSegment
 from io import BytesIO
 
-load_dotenv()
 
-set_api_key(os.getenv("ELEVENLAB_API_KEY"))
 
 class ElevenLabs(TTSProviderBase):
     def __init__(self):

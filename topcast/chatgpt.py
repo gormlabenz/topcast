@@ -1,13 +1,7 @@
 import openai
 from fastapi import HTTPException
 
-from typing import Callable
-from dotenv import load_dotenv
-import os 
 from .models import AudioContent
-
-load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 class ChatGPT:
     def __init__(self, audio_content: AudioContent):

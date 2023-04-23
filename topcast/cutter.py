@@ -28,8 +28,6 @@ class Cutter:
             if main_audio is not None:
                 step_audio = main_audio
                 
-               
-                
                 padding_end = AudioSegment.silent(duration=step.padding_end)
                 step_audio = step_audio + padding_end
                 

@@ -17,15 +17,13 @@ class ChatGPT:
         try:
             messages = self.theme.get_messages(input_message=input_message)
             
-            print("fetching")
             completion = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=messages
             )
+            content = completion.choices[0].message.content
             
-            print("fetched", completion.choices[0].message.content)
-
-            return self.theme.extract_content(completion.choices[0].message.content)
+            return self.theme.extract_content(content)
         except Exception as e:
             raise HTTPException(status_code=400, detail=str(e))
           

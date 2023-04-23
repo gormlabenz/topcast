@@ -42,6 +42,7 @@ class Podcaster:
         
     async def generate_speech(self):
         tasks = []
+        
         for step in self.timeline.timeline:
             for audio_layer in step.audio_layers:
                 if isinstance(audio_layer.audio, AudioContent):
@@ -50,6 +51,7 @@ class Podcaster:
         await asyncio.gather(*tasks)
         
     def cut(self):
+        
         podcast =  Cutter(self.timeline).cut()
         self.podcast = podcast
     
@@ -66,6 +68,7 @@ class Podcaster:
             tasks.append(
                 provider.tts(text)
             )
+            
             
         results = await asyncio.gather(*tasks)        
         audio_layer.data.audio_list = results

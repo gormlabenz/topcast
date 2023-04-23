@@ -8,11 +8,7 @@ timeline = [
     {
         "audio_layers": [
             {
-                "audio": {
-                          "content": "Hello world",
-                          "tts_provider": ElevenLabs,
-                          "theme": Introduction
-                          },
+                "audio": "podcast.wav",
                 "is_main": True,
                 "padding_start": 1600,
                 "padding_end": 1200,
@@ -27,7 +23,7 @@ timeline = [
 
 try:
     validated_timeline = Timeline(timeline=timeline)
-    Podcaster(timeline).generate()
-    print("Timeline is valid!")
+    t = Podcaster(timeline).generate()
+    print("Timeline is valid!", t)
 except ValueError as e:
     print(f"Timeline validation error: {e}")

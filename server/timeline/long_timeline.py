@@ -25,7 +25,7 @@ class LongTimeline(Timeline):
                 {
                     "audio": audio_list[0], # audio as a byte array,
                     "is_main": True, # if True, this audio sets the length of the step in the timeline
-                    "padding_start": 1600, # milliseconds, how much time to add before the audio gets played
+                    "padding_start": 2600, # milliseconds, how much time to add before the audio gets played
                     "padding_end": 1200, # milliseconds, how much time to add after the audio gets played
                     "volume": 1 # volume of the audio, 1 is normal, 0 is muted
                 },
@@ -39,7 +39,7 @@ class LongTimeline(Timeline):
                 {
                     "audio": audio_list[1], # audio as a byte array,
                     "is_main": True, # if True, this audio sets the length of the step in the timeline
-                    "padding_start": 1600, # milliseconds, how much time to add before the audio gets played
+                    "padding_start": 2800, # milliseconds, how much time to add before the audio gets played
                     "padding_end": 1800, # milliseconds, how much time to add after the audio gets played
                     "volume": 1 # volume of the audio, 1 is normal, 0 is muted
                 },

@@ -5,7 +5,7 @@ from server import app
 def test_wikipedia():
     client = TestClient(app)
     response = client.post("/wikipedia/", json={
-      "term": "OpenAI",
+      "term": "Dachshund",
       })
     
     print(response.json())

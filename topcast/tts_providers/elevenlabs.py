@@ -3,6 +3,7 @@ import asyncio
 import os
 from elevenlabs import set_api_key, generate
 from dotenv import load_dotenv
+from topcast.models import TTSText
 
 load_dotenv()
 
@@ -16,11 +17,11 @@ class ElevenLabs(TTSProviderBase):
             'female': "Bella"
         }
 
-    async def tts(self, text: str, gender: str):
-        voice = self.get_voice(gender)
+    async def tts(self, tts_text: TTSText):
+        voice = self.get_voice(tts_text.gender)
         
         def _synthesize_speech():
-          return generate(text=text, voice=voice)
+          return generate(text=tts_text.text, voice=voice)
     
     # Run the synchronous Text-to-Speech code in a separate thread
         return await asyncio.to_thread(_synthesize_speech)

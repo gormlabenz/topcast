@@ -1,4 +1,5 @@
 from .base import ChatGPTThemeBase
+from topcast.models import TTSText
 
 class Conclusion(ChatGPTThemeBase):
   def __init__(self):
@@ -24,7 +25,4 @@ A very similar practice came into use during the Great Depression that provided 
   """
   
   def extract_content(self, response_content: str):
-    return [{
-      "text" : response_content , 
-      "gender": "female"
-      }]
+    return [TTSText(text=response_content, gender="female")]

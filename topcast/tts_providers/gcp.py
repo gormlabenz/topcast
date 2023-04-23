@@ -2,6 +2,7 @@ from .base import TTSProviderBase
 from google.cloud import texttospeech
 import asyncio
 import os
+from topcast.models import TTSText
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gcp-keyfile.json"
 
@@ -19,8 +20,8 @@ class GCP(TTSProviderBase):
             )
         }
         
-    async def tts(self, text: str, gender: str):
-        voice = self.get_voice(gender)
+    async def tts(self, tts_text: TTSText):
+        voice = self.get_voice(tts_text.gender)
         
         def _synthesize_speech():
           client = texttospeech.TextToSpeechClient()
@@ -31,7 +32,7 @@ class GCP(TTSProviderBase):
           )
           
 
-          input_text = texttospeech.SynthesisInput(text=text)
+          input_text = texttospeech.SynthesisInput(text=tts_text.text)
           return client.synthesize_speech(
                   input=input_text, voice=voice, audio_config=audio_config
               ).audio_content

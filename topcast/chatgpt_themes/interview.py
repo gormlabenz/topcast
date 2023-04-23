@@ -1,4 +1,5 @@
 from .base import ChatGPTThemeBase
+from topcast.models import TTSText
 import re 
 
 class Interview(ChatGPTThemeBase):
@@ -45,12 +46,10 @@ Expert: My pleasure! Urban agriculture is a testament to human ingenuity and res
   def extract_content(self, response_content: str):
     pattern = r"(Interviewer|Expert): (.*?)\n"
     matches = re.findall(pattern, response_content, re.MULTILINE)
+        
+    extracted_text = []
     
-    print("matches", matches)
-    
-    extracted_text = [{
-      "text" : match[1] , 
-      "gender": "male" if match[0] == "Interviewer" else "female"
-      } for match in matches]
-    
+    for match in matches:
+      extracted_text.append(TTSText(text=match[1], gender="male" if match[0] == "Interviewer" else "female"))
+        
     return extracted_text

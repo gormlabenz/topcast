@@ -1,4 +1,4 @@
-from .base_provider import TTSProvider
+from .base import TTSProvider
 from google.cloud import texttospeech
 import asyncio
 import os

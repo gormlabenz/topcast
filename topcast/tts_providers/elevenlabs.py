@@ -1,4 +1,4 @@
-from .base_provider import TTSProvider
+from .base import TTSProvider
 import asyncio
 import os
 from elevenlabs import set_api_key, generate

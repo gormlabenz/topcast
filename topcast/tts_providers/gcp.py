@@ -3,6 +3,8 @@ from google.cloud import texttospeech
 import asyncio
 import os
 from topcast.models import TTSText
+from pydub import AudioSegment
+from io import BytesIO
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gcp-keyfile.json"
 
@@ -33,9 +35,9 @@ class GCP(TTSProviderBase):
           
 
           input_text = texttospeech.SynthesisInput(text=tts_text.text)
-          return client.synthesize_speech(
+          return AudioSegment.from_file(BytesIO(client.synthesize_speech(
                   input=input_text, voice=voice, audio_config=audio_config
-              ).audio_content
+              ).audio_content))
     
     # Run the synchronous Text-to-Speech code in a separate thread
         return await asyncio.to_thread(_synthesize_speech)

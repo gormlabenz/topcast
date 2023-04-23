@@ -3,6 +3,7 @@ from topcast.tts_providers import ElevenLabs, GCP
 from topcast.models import Timeline
 from pydub import AudioSegment
 from topcast.podcaster import Podcaster
+import pprint
 
 timeline = [
     {
@@ -28,6 +29,6 @@ timeline = [
 try:
     validated_timeline = Timeline(timeline=timeline)
     t = Podcaster(timeline).generate()
-    print("Timeline is valid!", t)
+    pprint.pprint(t)
 except ValueError as e:
     print(f"Timeline validation error: {e}")

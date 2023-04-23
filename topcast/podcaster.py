@@ -59,6 +59,8 @@ class Podcaster:
                 provider.tts(text)
             )
             
-        await asyncio.gather(*tasks)
+        results = await asyncio.gather(*tasks)
         
-        audio_layer.data.audio_list = tasks
+        print(results)
+        
+        audio_layer.data.audio_list = results

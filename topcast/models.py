@@ -4,6 +4,13 @@ from topcast.chatgpt_themes.base import ChatGPTThemeBase
 from topcast.tts_providers.base import TTSProviderBase
 from pydub.audio_segment import AudioSegment
 
+class StepData(BaseModel):
+    raw_audio: AudioSegment = None
+    text_list: List[str] = []
+
+    class Config:
+        arbitrary_types_allowed = True
+        
 class AudioContent(BaseModel):
     content: str
     theme: Type[ChatGPTThemeBase]
@@ -23,6 +30,7 @@ class AudioContent(BaseModel):
 
 class AudioLayer(BaseModel):
     audio: Union[str, AudioSegment, AudioContent]
+    data: StepData = None
     is_main: bool = False
     padding_start: float = Field(0, ge=0)
     padding_end: float = Field(0, ge=0)

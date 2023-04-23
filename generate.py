@@ -2,6 +2,7 @@ from topcast.chatgpt_themes import Introduction, Interview, Conclusion, Summary
 from topcast.tts_providers import ElevenLabs
 from topcast.models import Timeline
 from pydub import AudioSegment
+from topcast.podcaster import Podcaster
 
 timeline = [
     {
@@ -26,6 +27,7 @@ timeline = [
 
 try:
     validated_timeline = Timeline(timeline=timeline)
+    Podcaster(timeline).generate()
     print("Timeline is valid!")
 except ValueError as e:
     print(f"Timeline validation error: {e}")

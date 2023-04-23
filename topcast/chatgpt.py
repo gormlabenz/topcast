@@ -8,7 +8,7 @@ import os
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-class OpenAIApiBase:
+class ChatGPT:
     def __init__(self, system_prompt: str, messages: list, get_message: Callable, extract: Callable):
         self.system_prompt = system_prompt
         self.messages = messages

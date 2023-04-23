@@ -1,4 +1,4 @@
-from .openai_classes import OpenAIApiBase
+from .chatgpt import ChatGPT
 import time
 from pydub import AudioSegment
 from io import BytesIO
@@ -9,10 +9,10 @@ from .tts.factory import get_tts_provider
 
 class PodcastChunk:
     def __init__(self, config):
-        self.openai_api_base = OpenAIApiBase(config["system_prompt"], config["messages"], config["get_message"], config["extract"])
+        self.chatgpt = ChatGPT(config["system_prompt"], config["messages"], config["get_message"], config["extract"])
 
     async def generate_podcast_chunk(self, input_text: str, tts_provider="gcp"):
-        textItems = await self.openai_api_base.create_chat_completion(input_text)
+        textItems = await self.chatgpt.create_chat_completion(input_text)
         
         ttsProvider = get_tts_provider(tts_provider)
         

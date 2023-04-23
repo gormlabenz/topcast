@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class ChatGPTBase(ABC):
+class ChatGPTThemeBase(ABC):
     def __init__(self):
         self.system_prompt = ""
         self.messages = []

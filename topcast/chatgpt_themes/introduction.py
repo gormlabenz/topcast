@@ -1,6 +1,6 @@
-from .base import ChatGPTBase
+from .base import ChatGPTThemeBase
 
-class Summary(ChatGPTBase):
+class Summary(ChatGPTThemeBase):
   def __init__(self):
     super().__init__()
     

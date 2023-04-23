@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class TTSProvider(ABC):
+class TTSProviderBase(ABC):
     def __init__(self):
         self.voices = {}
 

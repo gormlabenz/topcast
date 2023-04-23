@@ -1,11 +1,11 @@
-from .base import TTSProvider
+from .base import TTSProviderBase
 from google.cloud import texttospeech
 import asyncio
 import os
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gcp-keyfile.json"
 
-class GCPProvider(TTSProvider):
+class GCPProvider(TTSProviderBase):
     def __init__(self):
         super().__init__()
         self.voices = {

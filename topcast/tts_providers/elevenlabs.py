@@ -1,4 +1,4 @@
-from .base import TTSProvider
+from .base import TTSProviderBase
 import asyncio
 import os
 from elevenlabs import set_api_key, generate
@@ -8,7 +8,7 @@ load_dotenv()
 
 set_api_key(os.getenv("ELEVENLAB_API_KEY"))
 
-class ElevenLabsProvider(TTSProvider):
+class ElevenLabsProvider(TTSProviderBase):
     def __init__(self):
         super().__init__()
         self.voices = {

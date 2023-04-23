@@ -8,7 +8,7 @@ load_dotenv()
 
 set_api_key(os.getenv("ELEVENLAB_API_KEY"))
 
-class ElevenLabsProvider(TTSProviderBase):
+class ElevenLabs(TTSProviderBase):
     def __init__(self):
         super().__init__()
         self.voices = {

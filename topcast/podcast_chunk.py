@@ -3,8 +3,6 @@ import time
 from pydub import AudioSegment
 from io import BytesIO
 import asyncio
-from .tts.factory import get_tts_provider
-
 
 
 class PodcastChunk:

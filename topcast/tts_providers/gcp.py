@@ -5,7 +5,7 @@ import os
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "gcp-keyfile.json"
 
-class GCPProvider(TTSProviderBase):
+class GCP(TTSProviderBase):
     def __init__(self):
         super().__init__()
         self.voices = {

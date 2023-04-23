@@ -1,7 +1,6 @@
 from .base import ChatGPTThemeBase
-import re 
 
-class Summary(ChatGPTThemeBase):
+class Conclusion(ChatGPTThemeBase):
   def __init__(self):
     super().__init__()
     

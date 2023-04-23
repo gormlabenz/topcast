@@ -23,7 +23,23 @@ timeline = [
     },
 ]
 
+t = [
+        {
+            "audio_layers": [
+                {
+                    "audio": 'sounds/summary.wav', # audio as a byte array,
+                    "is_main": True, # if True, this audio sets the length of the step in the timeline
+                    "padding_start": 0, # milliseconds, how much time to add before the audio gets played
+                    "padding_end": 0, # milliseconds, how much time to add after the audio gets played
+                    "volume": 1 # volume of the audio, 1 is normal, 0 is muted
+                }
+            ],
+        }
+    ]
 
-podcast = generate(timeline)
-podcast.export("podcast.mp3", format="mp3")
+
+
+
+podcast = generate(t)
+podcast.export("podcast_3.wav", format="wav")
 

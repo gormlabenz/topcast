@@ -28,16 +28,16 @@ class Cutter:
             if main_audio is not None:
                 step_audio = main_audio
                 
+               
+                
                 padding_end = AudioSegment.silent(duration=step.padding_end)
                 step_audio = step_audio + padding_end
                 
                 for overlay in overlays:
                     if len(step_audio) == 0:
                         step_audio = AudioSegment.silent(duration=len(overlay))
-                    step_audio = step_audio.overlay(overlay, loop=True)
+                    step_audio = step_audio.overlay(overlay)
                     
-                print(f"step_audio: {len(step_audio)}", step.fade_in, type( step.fade_in))
-
                 step_audio = step_audio.fade_in(step.fade_in)
                 step_audio = step_audio.fade_out(step.fade_out)
                 
@@ -49,7 +49,7 @@ class Cutter:
     def set_raw_audio(self):
         for step in self.timeline.timeline:
             for audio_layer in step.audio_layers:
-                if not isinstance(audio_layer.data.raw_audio, AudioContent):
+                if not isinstance(audio_layer.data.raw_audio, AudioSegment):
                     raw_audio = AudioSegment.empty()
                     
                     for audio in audio_layer.data.audio_list:

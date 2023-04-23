@@ -28,7 +28,7 @@ class Podcaster:
         for step in self.timeline.timeline:
             for audio_layer in step.audio_layers:
                 if type(audio_layer.audio) == str:
-                    audio_layer.data.raw_audio = AudioSegment.from_file(audio_layer.audio)
+                    audio_layer.data.raw_audio = AudioSegment.from_file(audio_layer.audio)              
 
     async def generate_text(self):
         tasks = []

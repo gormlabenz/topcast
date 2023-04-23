@@ -1,6 +1,6 @@
 from topcast.chatgpt_themes import Introduction, Interview, Conclusion, Summary
 from topcast.tts_providers import ElevenLabs, GCP
-from topcast.podcaster import Podcaster
+from topcast import generate
 
 timeline = [
     {
@@ -24,7 +24,6 @@ timeline = [
 ]
 
 
-podcast = Podcaster(timeline)
-podcast.generate()
-podcast.save()
+podcast = generate(timeline)
+podcast.export("podcast.mp3", format="mp3")
 

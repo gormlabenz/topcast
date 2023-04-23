@@ -1,5 +1,5 @@
-from topcast.chatgpt_themes import introduction, interview, conclusion, summary
-from topcast.tts_providers import elevenlabs
+from topcast.chatgpt_themes import Introduction, Interview, Conclusion, Summary
+from topcast.tts_providers import ElevenLabs
 from topcast.models import Timeline
 from pydub import AudioSegment
 
@@ -7,7 +7,11 @@ timeline = [
     {
         "audio_layers": [
             {
-                "audio": "podcast.wav",
+                "audio": {
+                          "content": "Hello world",
+                          "tts_provider": ElevenLabs,
+                          "theme": Introduction
+                          },
                 "is_main": True,
                 "padding_start": 1600,
                 "padding_end": 1200,
@@ -19,7 +23,7 @@ timeline = [
         "fade_out": 1800,
     },
 ]
-print(type(AudioSegment.from_file("podcast.wav")))
+
 try:
     validated_timeline = Timeline(timeline=timeline)
     print("Timeline is valid!")

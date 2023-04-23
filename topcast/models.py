@@ -6,24 +6,20 @@ from pydub.audio_segment import AudioSegment
 
 class AudioContent(BaseModel):
     content: str
-    theme: ChatGPTThemeBase
-    tts_provider: TTSProviderBase
+    theme: Type[ChatGPTThemeBase]
+    tts_provider: Type[TTSProviderBase]
 
     @validator("theme")
     def check_theme_base_class(cls, value):
-        if not isinstance(value, ChatGPTThemeBase):
+        if not issubclass(value, ChatGPTThemeBase):
             raise ValueError("The provided theme class does not inherit from ChatGPTThemeBase.")
         return value
 
     @validator("tts_provider")
     def check_tts_provider_base_class(cls, value):
-        if not isinstance(value, TTSProviderBase):
+        if not issubclass(value, TTSProviderBase):
             raise ValueError("The provided TTS provider class does not inherit from TTSProviderBase.")
         return value
-    
-    class Config:
-        arbitrary_types_allowed = True
-
 
 class AudioLayer(BaseModel):
     audio: Union[str, AudioSegment, AudioContent]

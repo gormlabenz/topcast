@@ -161,4 +161,4 @@ cython_debug/
 gcp-keyfile.json
 *.mp3
 *.wav
-sound/*
+sounds

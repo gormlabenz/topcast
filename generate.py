@@ -6,6 +6,9 @@ from topcast import (
     Topcaster,
 )
 
+from topcast.tts_providers import GCP
+from topcast.chatgpt_themes import Summary
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -28,13 +31,28 @@ topcast.add_chapter(
     audio_layers=[
         {
             "audio": {
-                "content": "It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain."
+                "content": "It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain.",
             },
             "sets_length": True,
             "fade_in": 1200,
             "fade_out": 1200,
         },
         {"audio": "sounds/background.mp3", "sets_length": False, "volume": 0.5},
+    ],
+    crossfade=2400,
+)
+topcast.add_chapter(
+    audio_layers=[
+        {
+            "audio": {
+                "content": "It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain.",
+                "tts_provider": GCP, 
+                "theme": Summary,
+            },
+            "sets_length": True,
+            "fade_in": 1200,
+            "fade_out": 1200,
+        },
     ],
     crossfade=2400,
 )

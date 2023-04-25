@@ -1,5 +1,5 @@
 from topcast.chatgpt_themes import Introduction, Interview, Conclusion, Summary, NoneTheme
-from topcast.tts_providers import ElevenLabs, GCP
+from topcast.tts_providers import ElevenLabs, GCP, GTTS
 import os
 from topcast import generate, set_elevenlab_api_key, set_google_credentials, set_openai_api_key
 
@@ -26,7 +26,7 @@ timeline = [
             "audio": {
                 "content": "It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain.",
                 "theme": NoneTheme,
-                "tts_provider": GCP
+                "tts_provider": GTTS
             }, 
             "sets_length": True, 
             "fade_in": 1200,
@@ -42,5 +42,5 @@ timeline = [
 ]
 
 podcast = generate(timeline)
-podcast.export("podcast_3.wav", format="wav")
+podcast.export("podcast_4.wav", format="wav")
 

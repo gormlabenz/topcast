@@ -33,5 +33,6 @@ setup(
         "pydub",
         "elevenlabs",
         "google-cloud-texttospeech",
+        "gTTS"
     ],
 )

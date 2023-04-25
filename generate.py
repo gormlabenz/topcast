@@ -16,7 +16,7 @@ timeline = [
         "audio_layers": [
             {
                 "audio": 'sounds/jingle.wav', 
-                "is_main": True, 
+                "sets_length": True, 
             }
         ],
     },
@@ -28,12 +28,12 @@ timeline = [
                 "theme": Introduction,
                 "tts_provider": GCP
             }, 
-            "is_main": True, 
+            "sets_length": True, 
             "fade_in": 1200,
             "fade_out": 1200,
         },{
             "audio": "sounds/background.mp3",
-            "is_main": False,
+            "sets_length": False,
             "volume": 0.5
         }
     ],

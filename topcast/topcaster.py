@@ -10,6 +10,35 @@ class Topcaster:
         self.timeline = Timeline(timeline=timeline)
         self.topcast = AudioSegment.empty()
         
+    def add_chapter(self, text_content=None, theme=None, tts_provider=None, audio_file=None, sets_length=True, volume=1, crossfade=0):
+        chapter = {
+            "audio_layers": []
+        }
+        
+        if text_content:
+            text_layer = {
+                "audio": {
+                    "content": text_content,
+                    "theme": theme,
+                    "tts_provider": tts_provider
+                },
+                "sets_length": sets_length
+            }
+            chapter["audio_layers"].append(text_layer)
+
+        if audio_file:
+            audio_layer = {
+                "audio": audio_file,
+                "sets_length": not sets_length,
+                "volume": volume
+            }
+            chapter["audio_layers"].append(audio_layer)
+
+        if crossfade:
+            chapter["crossfade"] = crossfade
+
+        self.timeline.append(chapter)
+        
     def generate(self):
         self.add_step_data_dict()
         self.open_audio_files()

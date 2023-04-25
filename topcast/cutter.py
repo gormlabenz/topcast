@@ -18,7 +18,7 @@ class Cutter:
             for audio_item in step.audio_layers:
                 audio = audio_item.data.raw_audio
 
-                if audio_item.is_main:
+                if audio_item.sets_length:
                     main_audio = audio
                     padding_start = AudioSegment.silent(duration=audio_item.padding_start)
                     main_audio = padding_start + main_audio

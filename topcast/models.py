@@ -42,7 +42,7 @@ class AudioContent(BaseModel):
 class AudioLayer(BaseModel):
     audio: Union[str, AudioSegment, AudioContent]
     data: StepData = None
-    is_main: bool = False
+    sets_length: bool = False
     fade_in: int = Field(1, ge=1)
     fade_out: int = Field(1, ge=1)
     padding_start: int = Field(0, ge=0)

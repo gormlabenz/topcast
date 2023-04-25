@@ -1,5 +1,5 @@
 from .base import TTSProviderBase
-from ..models import TTSText
+from ..models import TTSItem
 
 import asyncio
 from elevenlabs import generate
@@ -16,7 +16,7 @@ class ElevenLabs(TTSProviderBase):
             'female': "Bella"
         }
 
-    async def tts(self, tts_text: TTSText):
+    async def tts(self, tts_text: TTSItem):
         voice = self.get_voice(tts_text.gender)
         
         def _synthesize_speech():

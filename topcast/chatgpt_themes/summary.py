@@ -1,5 +1,5 @@
 from .base import ChatGPTThemeBase
-from topcast.models import TTSText
+from topcast.models import TTSItem
 
 class Summary(ChatGPTThemeBase):
   def __init__(self):
@@ -27,4 +27,4 @@ So, grab your Geiger counters and protective gear, because we're about to embark
     return  f"""Could you write another summary? Here are some information about it: {input_content}"""
   
   def extract_content(self, response_content: str):
-    return [TTSText(text=response_content, gender="female")]
+    return [TTSItem(text=response_content, gender="female")]

@@ -1,5 +1,5 @@
 from .base import ChatGPTThemeBase
-from topcast.models import TTSText
+from topcast.models import TTSItem
 
 class Introduction(ChatGPTThemeBase):
   def __init__(self):
@@ -19,4 +19,4 @@ The Olkiluoto plant consists of two boiling water reactors (BWRs), each with a c
     return  f"""Could you write another introduction? Here are some information about the topic: {input_content}"""
   
   def extract_content(self, response_content: str):
-    return [TTSText(text=response_content, gender="female")]
+    return [TTSItem(text=response_content, gender="female")]

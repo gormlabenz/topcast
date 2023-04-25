@@ -1,7 +1,7 @@
 from .base import TTSProviderBase
 from google.cloud import texttospeech
 import asyncio
-from topcast.models import TTSText
+from topcast.models import TTSItem
 from pydub import AudioSegment
 from io import BytesIO
 
@@ -19,7 +19,7 @@ class GCP(TTSProviderBase):
             )
         }
         
-    async def tts(self, tts_text: TTSText):
+    async def tts(self, tts_text: TTSItem):
         voice = self.get_voice(tts_text.gender)
         
         def _synthesize_speech():

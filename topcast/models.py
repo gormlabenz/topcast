@@ -3,13 +3,13 @@ from typing import List, Union, Any, Type
 from pydub.audio_segment import AudioSegment
 
 
-class TTSText(BaseModel):
+class TTSItem(BaseModel):
     text: str
     gender: str
 
 class ChapterData(BaseModel):
     raw_audio: AudioSegment = None
-    text_list: List[TTSText] = []
+    text_list: List[TTSItem] = []
     audio_list: List[AudioSegment] = []
 
     class Config:

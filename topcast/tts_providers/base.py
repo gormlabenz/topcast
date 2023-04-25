@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from topcast.models import TTSText
+from topcast.models import TTSItem
 
 class TTSProviderBase(ABC):
     def __init__(self):
@@ -9,5 +9,5 @@ class TTSProviderBase(ABC):
         return self.voices.get(gender.lower())
     
     @abstractmethod
-    def tts(self, tts_text: TTSText):
+    def tts(self, tts_text: TTSItem):
         pass

@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, validator
-from typing import List, Union, Any, Type
+from typing import List, Union, Any, Type, Optional
 from pydub.audio_segment import AudioSegment
 
 
@@ -21,10 +21,9 @@ class AudioItem(BaseModel):
     from topcast.chatgpt_themes.base import ChatGPTThemeBase
     from topcast.chatgpt_themes.none_theme import NoneTheme# <-- make default theme
     
-    
     content: str
-    theme: Type[ChatGPTThemeBase]
-    tts_provider: Type[TTSProviderBase]
+    theme: Optional[Type[ChatGPTThemeBase]] = Field(default=NoneTheme)
+    tts_provider: Optional[Type[TTSProviderBase]] = Field(default=GTTS)
 
     @validator("theme")
     def check_theme_base_class(cls, value):

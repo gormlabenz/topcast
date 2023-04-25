@@ -24,9 +24,7 @@ timeline = [
     "audio_layers": [
         {
             "audio": {
-                "content": "It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain.",
-                "theme": NoneTheme,
-                "tts_provider": GTTS
+                "content": "It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain."
             }, 
             "sets_length": True, 
             "fade_in": 1200,

@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["openai", "texttospeech", "wikipedia", "wikipediaapi"]
+  "cSpell.words": [
+    "GTTS",
+    "openai",
+    "texttospeech",
+    "wikipedia",
+    "wikipediaapi"
+  ]
 }

@@ -63,7 +63,6 @@ class Chapter(BaseModel):
     padding_end: int = Field(0, ge=0)
     crossfade: int = Field(0, ge=0)
     volume: float = Field(1, ge=0, le=1)
-    
 
 class Timeline(BaseModel):
     timeline: List[Chapter]

@@ -1,42 +1,18 @@
 import asyncio
 from pydub import AudioSegment
 
-from .models import Timeline, AudioItem, ChapterData
+from .models import Timeline, AudioItem, ChapterData, Chapter
 from .cutter import Cutter
 
 class Topcaster:
-    def __init__(self, timeline: Timeline):
+    def __init__(self, timeline: Timeline = []):
         self.timeline = Timeline(timeline=timeline)
         self.topcast = AudioSegment.empty()
         
-    def add_chapter(self, text_content=None, theme=None, tts_provider=None, audio_file=None, sets_length=True, volume=1, crossfade=0):
-        chapter = {
-            "audio_layers": []
-        }
+    def add_chapter(self, audio_layers = [], fade_in: int = 1, fade_out: int = 1 , padding_start: int = 0 , padding_end: int = 0 , crossfade: int = 0, volume: float = 1):
         
-        if text_content:
-            text_layer = {
-                "audio": {
-                    "content": text_content,
-                    "theme": theme,
-                    "tts_provider": tts_provider
-                },
-                "sets_length": sets_length
-            }
-            chapter["audio_layers"].append(text_layer)
-
-        if audio_file:
-            audio_layer = {
-                "audio": audio_file,
-                "sets_length": not sets_length,
-                "volume": volume
-            }
-            chapter["audio_layers"].append(audio_layer)
-
-        if crossfade:
-            chapter["crossfade"] = crossfade
-
-        self.timeline.append(chapter)
+        chapter = Chapter(audio_layers=audio_layers, fade_in=fade_in, fade_out=fade_out, padding_start=padding_start, padding_end=padding_end, crossfade=crossfade, volume=volume)
+        self.timeline.timeline.append(chapter)
         
     def generate(self):
         self.add_chapter_data_dict()
@@ -103,5 +79,5 @@ class Topcaster:
         results = await asyncio.gather(*tasks)        
         audio_layer.data.audio_list = results
         
-    def save(self, file_name = "topcast.mp3", format="mp3"):
+    def export(self, file_name = "topcast.mp3", format="mp3"):
         self.topcast.export(file_name, format = format)

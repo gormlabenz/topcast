@@ -6,8 +6,6 @@ from elevenlabs import generate
 from pydub import AudioSegment
 from io import BytesIO
 
-
-
 class ElevenLabs(TTSProviderBase):
     def __init__(self):
         super().__init__()

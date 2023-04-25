@@ -29,11 +29,65 @@ timeline = [
                 "tts_provider": ElevenLabs
             }, 
             "is_main": True, 
+            "fade_in": 1200,
+            "fade_out": 1200,
+        },{
+            "audio": "sounds/background.wav",
+            "is_main": False,
+            "volume": 0.5
         }
     ],
-
     "crossfade": 2400, 
-},
+    },
+        {
+    "audio_layers": [
+        {
+            "audio": {
+                "content": "Portugal (Portuguese pronunciation: [puɾtuˈɣal]), officially the Portuguese Republic (Portuguese: República Portuguesa [ʁɛˈpuβlikɐ puɾtuˈɣezɐ]),[note 4] is a country located on the Iberian Peninsula, in southwestern Europe, and whose territory also includes the Atlantic archipelagos of the Azores and Madeira. It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain, the sole country to have a land border with Portugal. Its two archipelagos form two autonomous regions with their own regional governments. Lisbon is the capital and largest city by population.",
+                "theme": Introduction,
+                "tts_provider": ElevenLabs
+            }, 
+            "is_main": True, 
+            "fade_in": 1200,
+            "fade_out": 1200,
+        },{
+            "audio": "sounds/background.wav",
+            "is_main": False,
+            "volume": 0.5
+        }
+    ],
+    "crossfade": 2400, 
+    },
+    {
+    "audio_layers": [
+        {
+            "audio": {
+                "content": "Portugal (Portuguese pronunciation: [puɾtuˈɣal]), officially the Portuguese Republic (Portuguese: República Portuguesa [ʁɛˈpuβlikɐ puɾtuˈɣezɐ]),[note 4] is a country located on the Iberian Peninsula, in southwestern Europe, and whose territory also includes the Atlantic archipelagos of the Azores and Madeira. It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain, the sole country to have a land border with Portugal. Its two archipelagos form two autonomous regions with their own regional governments. Lisbon is the capital and largest city by population.",
+                "theme": Interview,
+                "tts_provider": GCP
+            }, 
+            "is_main": True, 
+            "fade_in": 1200,
+            "fade_out": 1200,
+        }
+    ],
+    "crossfade": 2400, 
+    },
+    {
+    "audio_layers": [
+        {
+            "audio": {
+                "content": "Portugal (Portuguese pronunciation: [puɾtuˈɣal]), officially the Portuguese Republic (Portuguese: República Portuguesa [ʁɛˈpuβlikɐ puɾtuˈɣezɐ]),[note 4] is a country located on the Iberian Peninsula, in southwestern Europe, and whose territory also includes the Atlantic archipelagos of the Azores and Madeira. It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain, the sole country to have a land border with Portugal. Its two archipelagos form two autonomous regions with their own regional governments. Lisbon is the capital and largest city by population.",
+                "theme": Conclusion,
+                "tts_provider": ElevenLabs
+            }, 
+            "is_main": True, 
+            "fade_in": 1200,
+            "fade_out": 1200,
+        }
+    ],
+    "crossfade": 2400, 
+    },
 ]
 
 podcast = generate(timeline)

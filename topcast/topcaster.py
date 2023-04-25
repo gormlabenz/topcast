@@ -2,7 +2,6 @@ import asyncio
 from pydub import AudioSegment
 
 from .models import Timeline, AudioContent, ChapterData
-from .chatgpt import ChatGPT
 from .cutter import Cutter
 
 class Topcaster:

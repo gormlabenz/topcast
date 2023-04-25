@@ -7,7 +7,7 @@ class Cutter:
         self.timeline = timeline
 
     def cut(self):
-        podcast = AudioSegment.empty()
+        topcast = AudioSegment.empty()
         
         self.set_raw_audio()
 
@@ -40,9 +40,9 @@ class Cutter:
                 step_audio = step_audio.fade_out(step.fade_out)
                 
                 
-                podcast = podcast.append(step_audio, crossfade=step.crossfade if i > 0 else 0)
+                topcast = topcast.append(step_audio, crossfade=step.crossfade if i > 0 else 0)
 
-        return podcast
+        return topcast
     
     def set_raw_audio(self):
         for step in self.timeline.timeline:

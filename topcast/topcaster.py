@@ -5,10 +5,10 @@ from .models import Timeline, AudioContent, StepData
 from .chatgpt import ChatGPT
 from .cutter import Cutter
 
-class Podcaster:
+class Topcaster:
     def __init__(self, timeline: Timeline):
         self.timeline = Timeline(timeline=timeline)
-        self.podcast = AudioSegment.empty()
+        self.topcast = AudioSegment.empty()
         
     def generate(self):
         self.add_step_data_dict()
@@ -17,7 +17,7 @@ class Podcaster:
         asyncio.run(self.generate_speech())
         self.cut()
         
-        return self.podcast
+        return self.topcast
 
     def add_step_data_dict(self):
         for step in self.timeline.timeline:
@@ -52,8 +52,8 @@ class Podcaster:
         
     def cut(self):
         
-        podcast =  Cutter(self.timeline).cut()
-        self.podcast = podcast
+        topcast =  Cutter(self.timeline).cut()
+        self.topcast = topcast
     
     async def generate_text_and_assign(self, audio_layer):
         chatgpt = ChatGPT(audio_layer.audio)
@@ -73,5 +73,5 @@ class Podcaster:
         results = await asyncio.gather(*tasks)        
         audio_layer.data.audio_list = results
         
-    def save(self, file_name = "podcast.mp3", format="mp3"):
-        self.podcast.export(file_name, format = format)
+    def save(self, file_name = "topcast.mp3", format="mp3"):
+        self.topcast.export(file_name, format = format)

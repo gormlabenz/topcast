@@ -1,10 +1,10 @@
-from .podcaster import Podcaster
+from .topcaster import Topcaster
 from .models import Timeline
 
 def generate(timeline: Timeline):
-    podcaster = Podcaster(timeline)
-    podcast = podcaster.generate()
-    return podcast
+    topcaster = Topcaster(timeline)
+    topcast = topcaster.generate()
+    return topcast
 
 def set_elevenlab_api_key(api_key: str):
     from elevenlabs import set_api_key

@@ -1,7 +1,7 @@
 import asyncio
 from pydub import AudioSegment
 
-from .models import Timeline, AudioContent, ChapterData
+from .models import Timeline, AudioItem, ChapterData
 from .cutter import Cutter
 
 class Topcaster:
@@ -62,7 +62,7 @@ class Topcaster:
         tasks = []
         for chapter in self.timeline.timeline:
             for audio_layer in chapter.audio_layers:
-                if isinstance(audio_layer.audio, AudioContent):
+                if isinstance(audio_layer.audio, AudioItem):
                     tasks.append(
                         self.generate_text_and_assign(audio_layer)
                     )
@@ -73,7 +73,7 @@ class Topcaster:
         
         for chapter in self.timeline.timeline:
             for audio_layer in chapter.audio_layers:
-                if isinstance(audio_layer.audio, AudioContent):
+                if isinstance(audio_layer.audio, AudioItem):
                     tasks.append(self.generate_speech_and_assign(audio_layer))
                     
         await asyncio.gather(*tasks)

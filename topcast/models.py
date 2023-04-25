@@ -15,9 +15,12 @@ class ChapterData(BaseModel):
     class Config:
         arbitrary_types_allowed = True
         
-class AudioContent(BaseModel):
+class AudioItem(BaseModel):
     from topcast.tts_providers.base import TTSProviderBase
+    from topcast.tts_providers.gt import GTTS # <-- make default provider
     from topcast.chatgpt_themes.base import ChatGPTThemeBase
+    from topcast.chatgpt_themes.none_theme import NoneTheme# <-- make default theme
+    
     
     content: str
     theme: Type[ChatGPTThemeBase]
@@ -40,7 +43,7 @@ class AudioContent(BaseModel):
         return value
 
 class AudioLayer(BaseModel):
-    audio: Union[str, AudioSegment, AudioContent]
+    audio: Union[str, AudioSegment, AudioItem]
     data: ChapterData = None
     sets_length: bool = False
     fade_in: int = Field(1, ge=1)

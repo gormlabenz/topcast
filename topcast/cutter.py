@@ -1,6 +1,6 @@
 from pydub import AudioSegment
 from typing import List, Dict
-from .models import Timeline, ChapterData, AudioContent
+from .models import Timeline, ChapterData, AudioItem
 
 class Cutter:
     def __init__(self, timeline: Timeline):

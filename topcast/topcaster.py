@@ -85,8 +85,10 @@ class Topcaster:
         self.topcast = topcast
     
     async def generate_text_and_assign(self, audio_layer):
-        chatgpt = ChatGPT(audio_layer.audio)
-        generated_text = await chatgpt.create_chat_completion(audio_layer.audio.content)
+        chatgpt_theme = audio_layer.audio.theme()
+        
+        generated_text = await chatgpt_theme.create_chat_completion(audio_layer.audio.content)
+        
         audio_layer.data.text_list = generated_text
         
     async def generate_speech_and_assign(self, audio_layer):

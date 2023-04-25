@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import openai
 
 class ChatGPTThemeBase(ABC):
     def __init__(self):
@@ -16,6 +17,17 @@ class ChatGPTThemeBase(ABC):
         
         return messages
     
+    async def create_chat_completion(self, input_message: str):
+            messages = self.get_messages(input_message=input_message)
+            
+            completion = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=messages
+            )
+            content = completion.choices[0].message.content
+            
+            return self.extract_content(content)
+        
     @abstractmethod
     def create_content(self, input_content: str):
         pass

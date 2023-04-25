@@ -7,7 +7,7 @@ class TTSText(BaseModel):
     text: str
     gender: str
 
-class StepData(BaseModel):
+class ChapterData(BaseModel):
     raw_audio: AudioSegment = None
     text_list: List[TTSText] = []
     audio_list: List[AudioSegment] = []
@@ -41,7 +41,7 @@ class AudioContent(BaseModel):
 
 class AudioLayer(BaseModel):
     audio: Union[str, AudioSegment, AudioContent]
-    data: StepData = None
+    data: ChapterData = None
     sets_length: bool = False
     fade_in: int = Field(1, ge=1)
     fade_out: int = Field(1, ge=1)
@@ -53,7 +53,7 @@ class AudioLayer(BaseModel):
     class Config:
         arbitrary_types_allowed = True
         
-class Step(BaseModel):
+class Chapter(BaseModel):
     audio_layers: List[AudioLayer]
     fade_in: int = Field(1, ge=1)
     fade_out: int = Field(1, ge=1)
@@ -64,4 +64,4 @@ class Step(BaseModel):
     
 
 class Timeline(BaseModel):
-    timeline: List[Step]
+    timeline: List[Chapter]

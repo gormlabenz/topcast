@@ -1,7 +1,7 @@
 import asyncio
 from pydub import AudioSegment
 
-from .models import Timeline, AudioContent, StepData
+from .models import Timeline, AudioContent, ChapterData
 from .chatgpt import ChatGPT
 from .cutter import Cutter
 
@@ -40,7 +40,7 @@ class Topcaster:
         self.timeline.append(chapter)
         
     def generate(self):
-        self.add_step_data_dict()
+        self.add_chapter_data_dict()
         self.open_audio_files()
         asyncio.run(self.generate_text())
         asyncio.run(self.generate_speech())
@@ -48,21 +48,21 @@ class Topcaster:
         
         return self.topcast
 
-    def add_step_data_dict(self):
-        for step in self.timeline.timeline:
-            for audio_layer in step.audio_layers:
-                audio_layer.data = StepData(raw_audio= None, text_list=[], audio_list= [])
+    def add_chapter_data_dict(self):
+        for chapter in self.timeline.timeline:
+            for audio_layer in chapter.audio_layers:
+                audio_layer.data = ChapterData(raw_audio= None, text_list=[], audio_list= [])
                 
     def open_audio_files(self):
-        for step in self.timeline.timeline:
-            for audio_layer in step.audio_layers:
+        for chapter in self.timeline.timeline:
+            for audio_layer in chapter.audio_layers:
                 if type(audio_layer.audio) == str:
                     audio_layer.data.raw_audio = AudioSegment.from_file(audio_layer.audio)              
 
     async def generate_text(self):
         tasks = []
-        for step in self.timeline.timeline:
-            for audio_layer in step.audio_layers:
+        for chapter in self.timeline.timeline:
+            for audio_layer in chapter.audio_layers:
                 if isinstance(audio_layer.audio, AudioContent):
                     tasks.append(
                         self.generate_text_and_assign(audio_layer)
@@ -72,8 +72,8 @@ class Topcaster:
     async def generate_speech(self):
         tasks = []
         
-        for step in self.timeline.timeline:
-            for audio_layer in step.audio_layers:
+        for chapter in self.timeline.timeline:
+            for audio_layer in chapter.audio_layers:
                 if isinstance(audio_layer.audio, AudioContent):
                     tasks.append(self.generate_speech_and_assign(audio_layer))
                     

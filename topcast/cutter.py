@@ -1,6 +1,6 @@
 from pydub import AudioSegment
 from typing import List, Dict
-from .models import Timeline, StepData, AudioContent
+from .models import Timeline, ChapterData, AudioContent
 
 class Cutter:
     def __init__(self, timeline: Timeline):
@@ -11,11 +11,11 @@ class Cutter:
         
         self.set_raw_audio()
 
-        for i, step in enumerate(self.timeline.timeline):
+        for i, chapter in enumerate(self.timeline.timeline):
             main_audio = None
             overlays = []
 
-            for audio_item in step.audio_layers:
+            for audio_item in chapter.audio_layers:
                 audio = audio_item.data.raw_audio
 
                 if audio_item.sets_length:
@@ -26,27 +26,27 @@ class Cutter:
                     overlays.append(audio)
                     
             if main_audio is not None:
-                step_audio = main_audio
+                chapter_audio = main_audio
                 
-                padding_end = AudioSegment.silent(duration=step.padding_end)
-                step_audio = step_audio + padding_end
+                padding_end = AudioSegment.silent(duration=chapter.padding_end)
+                chapter_audio = chapter_audio + padding_end
                 
                 for overlay in overlays:
-                    if len(step_audio) == 0:
-                        step_audio = AudioSegment.silent(duration=len(overlay))
-                    step_audio = step_audio.overlay(overlay)
+                    if len(chapter_audio) == 0:
+                        chapter_audio = AudioSegment.silent(duration=len(overlay))
+                    chapter_audio = chapter_audio.overlay(overlay)
                     
-                step_audio = step_audio.fade_in(step.fade_in)
-                step_audio = step_audio.fade_out(step.fade_out)
+                chapter_audio = chapter_audio.fade_in(chapter.fade_in)
+                chapter_audio = chapter_audio.fade_out(chapter.fade_out)
                 
                 
-                topcast = topcast.append(step_audio, crossfade=step.crossfade if i > 0 else 0)
+                topcast = topcast.append(chapter_audio, crossfade=chapter.crossfade if i > 0 else 0)
 
         return topcast
     
     def set_raw_audio(self):
-        for step in self.timeline.timeline:
-            for audio_layer in step.audio_layers:
+        for chapter in self.timeline.timeline:
+            for audio_layer in chapter.audio_layers:
                 if not isinstance(audio_layer.data.raw_audio, AudioSegment):
                     raw_audio = AudioSegment.empty()
                     

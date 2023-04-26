@@ -101,7 +101,7 @@ topcast.generate()
 topcast.export("podcast_output.wav", format="wav")
 ```
 This will create a podcast using the given chapters and save it as a WAV file named podcast_output.wav.
-##Customization
+## Customization
 You can customize your podcast by adding more chapters to the Topcaster object. Each chapter represents a segment of the podcast. You can add more segments with different themes, TTS providers, and audio layers.
 
 For example, if you want to add an interview segment, you can include it like this:

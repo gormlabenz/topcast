@@ -17,9 +17,9 @@ class ChapterData(BaseModel):
         
 class AudioItem(BaseModel):
     from topcast.tts_providers.base import TTSProviderBase
-    from topcast.tts_providers.gt import GTTS # <-- make default provider
+    from topcast.tts_providers.gt import GTTS 
     from topcast.chatgpt_themes.base import ChatGPTThemeBase
-    from topcast.chatgpt_themes.none_theme import NoneTheme# <-- make default theme
+    from topcast.chatgpt_themes.none_theme import NoneTheme
     
     content: str
     theme: Optional[Type[ChatGPTThemeBase]] = Field(default=NoneTheme)

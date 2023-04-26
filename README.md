@@ -1,9 +1,10 @@
 # Topcast: Turn Text into Podcasts with TTS and ChatGPT
 
 Topcast is a Python package that allows you to transform text into a podcast using Text-to-Speech (TTS) and language models. With Topcast, you can provide a text, and the package will create a podcast with an introduction, interview, conclusion, sound effects, and more. Topcast supports various TTS providers and language models.
+## Example
+Generated using ChatGPT themes: Introduction with the ElevenLabs TTS Provider, Interview with the GCP TTS Provider and Summary also with the ElevenLabs TTS Provider.
 
 https://user-images.githubusercontent.com/53308156/234681121-9bd12495-f848-4b3c-8758-bf2969323cb9.mp4
-
 ## Example Implementation
 
 ```python

@@ -53,13 +53,9 @@ from topcast import (
 from topcast.tts_providers import GCP
 from topcast.chatgpt_themes import Summary
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
-set_elevenlab_api_key(os.environ["ELEVENLAB_API_KEY"])
-set_openai_api_key(os.environ["OPENAI_API_KEY"])
-set_google_credentials("gcp-keyfile.json")
+set_elevenlab_api_key("XXX-XXX-XXX") # if you want to use elvenlabs for tts
+set_google_credentials("gcp-keyfile.json") # if you want google cloud platform for tts
+set_openai_api_key("XXX-XXX-XXX") # if you want to use a ChatGPT theme
 ```
 
 2. Create a Topcaster object and add chapters with the desired podcast structure:
@@ -70,7 +66,7 @@ topcast = Topcaster()
 topcast.add_chapter(
     audio_layers=[
         {
-            "audio": "sounds/jingle.wav",
+            "audio": "sounds/jingle.wav", # use a audio file
             "sets_length": True,
         }
     ]
@@ -79,17 +75,17 @@ topcast.add_chapter(
     audio_layers=[
         {
             "audio": {
-                "content": "Portugal...",
-                "tts_provider": GCP,
-                "theme": Summary,
+                "content": "Portugal...", 
+                "tts_provider": GCP, # use google cloud platform for tts
+                "theme": Summary, # generate a summary of the text using ChatGPT
             },
-            "sets_length": True,
-            "fade_in": 1200,
-            "fade_out": 1200,
+            "sets_length": True, # this audio_layer sets the length of the chapter, only one audio_layer can set the length per chapter
+            "fade_in": 1200, # fade in 1200 ms
+            "fade_out": 1200, # fade out 1200 ms
         },
-        {"audio": "sounds/background.mp3", "sets_length": False, "volume": 0.5},
+        {"audio": "sounds/background.mp3", "sets_length": False, "volume": 0.5}, # overlay audio
     ],
-    crossfade=2400,
+    crossfade=2400, # crossfade last chapter
 )
 
 ```
@@ -98,53 +94,92 @@ topcast.add_chapter(
 
 ```python
 topcast.generate()
-topcast.export("podcast_output.wav", format="wav")
+topcast.export("podcast.wav", format="wav")
 ```
 This will create a podcast using the given chapters and save it as a WAV file named podcast_output.wav.
-## Customization
-You can customize your podcast by adding more chapters to the Topcaster object. Each chapter represents a segment of the podcast. You can add more segments with different themes, TTS providers, and audio layers.
+## ChatGPT Themes
+ChatGPT Themes allow you to transform your text into various structures by leveraging ChatGPT, a large language model. With the available themes, you can transform your text into an interview, introduction, summary, or conclusion. You can also choose to leave the text as it is by using the NoneTheme, which is the default theme.
 
-For example, if you want to add an interview segment, you can include it like this:
+The available ChatGPT Themes are:
+
+- Interview
+- Introduction
+- Summary
+- Conclusion
+- NoneTheme (default)
+### Usage
+To use a specific ChatGPT theme, first import the desired theme:
+```python
+from topcast.chatgpt_themes import Interview, Introduction, Summary, Conclusion
+```
+Then, set your OpenAI API key using the set_openai_api_key function:
+```python
+from topcast import set_openai_api_key
+
+set_openai_api_key("your-openai-api-key")
+
+```
+Finally, set the `theme` property in the audio layer of the desired chapter:
 
 ```python
-from topcast import Topcaster
-from topcast.chatgpt_themes import Interview
+{
+    "audio": {
+        "content": "Text content...",
+        "theme": Introduction,  # Replace with the desired theme
+    },
+}
 
-topcast = Topcast()
+```
+To keep the original text without any transformation, set NoneTheme or don't set `theme` at all
 
-topcast.add_chapter(
-    audio_layers=[
-        {
-            "audio": {
-                "content": "It features the westernmost point in continental Europe, and its Iberian portion is bordered to the west and south by the Atlantic Ocean and to the north and east by Spain...", # <- gets automatically converted into an interview script
-                "tts_provider": GCP,
-                "theme": Interview,
-            },
-            "sets_length": True,
-            "fade_in": 1200,
-            "fade_out": 1200,
-        },
-    ],
-    crossfade=2400,
-)
 
+```python
+from topcast.chatgpt_themes import NoneTheme
+
+{
+    "audio": {
+        "content": "Text content...",
+        "theme": NoneTheme,  # Keeps the text as it is
+    },
+}
+```
+## TTS Providers
+Topcast allows you to use various Text-to-Speech (TTS) providers to convert your text into speech. The currently implemented TTS providers are:
+- GCP (Google Cloud Platform) - Requires a Google Cloud Platform account
+- Elevenlabs - Requires an Elevenlabs account
+- GTTS (Google Translate) - No account required (default)
+### Comparison
+- **Elevenlabs**: Offers the best voices but is expensive and has API limits.
+- **GCP (Google Cloud Platform)**: Relatively cheap but requires a Google Cloud Platform account with the Text-to-Speech API enabled.
+- **GTTS (Google Translate)**: Free and does not require an account, but the voice quality is not as good as the other options.
+### Usage
+First, import the desired TTS provider:
+```python
+from topcast.tts_providers import GCP, Elevenlabs, GTTS
+
+```
+Next, set the API key or credentials for the provider, if required:
+```python
+from topcast import set_elevenlab_api_key, set_google_credentials
+
+set_elevenlab_api_key("your-elevenlabs-api-key")
+set_google_credentials("path-to-gcp-keyfile.json")
+```
+Finally, specify the tts_provider property in the audio layer of the desired chapter:
+```python
+{
+    "audio": {
+        "content": "Text content...",
+        "tts_provider": GCP,  # Replace with the desired TTS provider
+    },
+}
 
 ```
 
-You can also add sound effects or background music by adding additional audio layers within a chapter:
-
+For example, to create a chapter using the GCP TTS provider:
 ```python
-from topcast import Topcaster
-
-topcast = Topcast()
-
 topcast.add_chapter(
     audio_layers=[
-        {
-            "audio": 'sounds/background_music.wav',
-            "sets_length": False,
-            "volume": 0.3,
-        },
         {
             "audio": {
                 "content": "Text content...",
@@ -154,11 +189,18 @@ topcast.add_chapter(
             "sets_length": True,
             "fade_in": 1200,
             "fade_out": 1200,
-        }
+        },
     ],
     crossfade=2400,
 )
-```
-This will add background music with a volume of 0.3 to the chapter.
 
-Remember to adjust the crossfade value for smoother transitions between chapters.
+```
+To use the default GTTS provider, you can simply omit the tts_provider property:
+
+```python
+{
+    "audio": {
+        "content": "Text content...",
+    },
+}
+```

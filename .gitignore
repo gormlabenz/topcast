@@ -162,4 +162,3 @@ gcp-keyfile.json
 *.mp3
 *.wav
 sounds
-!podcast.wav

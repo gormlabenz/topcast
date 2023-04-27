@@ -31,18 +31,16 @@ class Topcaster:
         for chapter in self.timeline.timeline:
             have_set_length = False
             
-            if(len(chapter.audio_layers) == 1):
-                chapter.audio_layers[0].sets_length = True
-                print("Only one audio layer in chapter, setting length setter")
-                continue
-            
             for audio_layer in chapter.audio_layers:
                 if audio_layer.sets_length:
                     if have_set_length:
                         raise Exception("Only one audio layer can set the length of a chapter")
                     else:
-                        print("Setting length setter")
                         have_set_length = True
+                        
+            if not have_set_length:
+                chapter.audio_layers[0].sets_length = True
+            
                 
     def add_chapter_data_dict(self):
         for chapter in self.timeline.timeline:

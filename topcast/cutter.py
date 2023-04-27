@@ -1,5 +1,5 @@
 from pydub import AudioSegment
-from typing import List, Dict
+from typing import List, Dict, Union
 from .models import Timeline, ChapterData, AudioItem
 
 class Cutter:
@@ -14,31 +14,23 @@ class Cutter:
         for i, chapter in enumerate(self.timeline.timeline):
             main_audio = None
             overlays = []
-
+            
             for audio_item in chapter.audio_layers:
-                audio = audio_item.data.raw_audio
-
+                audio = self.add_effects(audio_item.data.raw_audio, audio_item)
+                
                 if audio_item.sets_length:
                     main_audio = audio
-                    padding_start = AudioSegment.silent(duration=audio_item.padding_start)
-                    main_audio = padding_start + main_audio
                 else:
                     overlays.append(audio)
-                    
+                
+            
             if main_audio is not None:
                 chapter_audio = main_audio
-                
-                padding_end = AudioSegment.silent(duration=chapter.padding_end)
-                chapter_audio = chapter_audio + padding_end
-                
+                                
                 for overlay in overlays:
-                    if len(chapter_audio) == 0:
-                        chapter_audio = AudioSegment.silent(duration=len(overlay))
                     chapter_audio = chapter_audio.overlay(overlay)
-                    
-                chapter_audio = chapter_audio.fade_in(chapter.fade_in)
-                chapter_audio = chapter_audio.fade_out(chapter.fade_out)
                 
+                chapter_audio = self.add_effects(chapter_audio, chapter)
                 
                 topcast = topcast.append(chapter_audio, crossfade=chapter.crossfade if i > 0 else 0)
 
@@ -54,3 +46,15 @@ class Cutter:
                         raw_audio = raw_audio + audio
                         
                     audio_layer.data.raw_audio = raw_audio
+
+    def add_effects(self, audio: AudioSegment, audio_item: Union[AudioItem, ChapterData]):
+        padding_end = AudioSegment.silent(duration=audio_item.padding_end)
+        padding_start = AudioSegment.silent(duration=audio_item.padding_start)
+
+        audio = padding_start + audio + padding_end
+
+        audio = audio.fade_in(audio_item.fade_in)
+        audio = audio.fade_out(audio_item.fade_out)
+
+        # audio = audio.apply_gain(audio_item.volume)
+        return audio

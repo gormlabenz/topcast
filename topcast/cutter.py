@@ -16,14 +16,15 @@ class Cutter:
             overlays = []
             
             for audio_item in chapter.audio_layers:
-                audio = self.add_effects(audio_item.data.raw_audio, audio_item)
-                
                 if audio_item.sets_length:
+                    audio = self.add_effects(audio_item.data.raw_audio, audio_item)
                     main_audio = audio
-                else:
+                
+            for audio_item in chapter.audio_layers:
+                if not audio_item.sets_length:
+                    audio = self.add_effects(audio_item.data.raw_audio[:len(main_audio)], audio_item)
                     overlays.append(audio)
                 
-            
             if main_audio is not None:
                 chapter_audio = main_audio
                                 
@@ -48,9 +49,9 @@ class Cutter:
                     audio_layer.data.raw_audio = raw_audio
 
     def add_effects(self, audio: AudioSegment, audio_item: Union[AudioItem, ChapterData]):
-        padding_end = AudioSegment.silent(duration=audio_item.padding_end)
         padding_start = AudioSegment.silent(duration=audio_item.padding_start)
-
+        padding_end = AudioSegment.silent(duration=audio_item.padding_end)
+        
         audio = padding_start + audio + padding_end
 
         audio = audio.fade_in(audio_item.fade_in)

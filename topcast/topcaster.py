@@ -1,7 +1,7 @@
 import asyncio
 from pydub import AudioSegment
 
-from .models import Timeline, AudioItem, ChapterData, Chapter
+from .models import Timeline, AudioItem, ChapterData, Chapter,AudioLayer
 from .cutter import Cutter
 
 class Topcaster:
@@ -12,8 +12,10 @@ class Topcaster:
         
     def add_chapter(self, audio_layers = [], fade_in: int = 1, fade_out: int = 1 , padding_start: int = 0 , padding_end: int = 0 , crossfade: int = 0, volume: float = 1):
         self.already_generated = False
-        
+
         chapter = Chapter(audio_layers=audio_layers, fade_in=fade_in, fade_out=fade_out, padding_start=padding_start, padding_end=padding_end, crossfade=crossfade, volume=volume)
+        
+        
         self.timeline.timeline.append(chapter)
         
     def generate(self):        

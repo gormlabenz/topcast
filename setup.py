@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="topcast",
-    version="0.1.6",
+    version="0.1.7",
     author="Gorm Labenz",
     author_email="gorm@labenz.io",
     description="A Python package for Topcast",

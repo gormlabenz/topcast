@@ -4,7 +4,11 @@ Topcast is a Python package that allows you to transform text into a podcast usi
 ## Example
 Generated using ChatGPT themes: Introduction with the ElevenLabs TTS Provider, Interview with the GCP TTS Provider and Summary also with the ElevenLabs TTS Provider.
 
-https://user-images.githubusercontent.com/53308156/234681121-9bd12495-f848-4b3c-8758-bf2969323cb9.mp4
+
+
+https://user-images.githubusercontent.com/53308156/234994155-2921b28a-9caa-46fc-9608-5ef01881713e.mp4
+
+
 ## Example Implementation
 
 ```python

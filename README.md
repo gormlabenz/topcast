@@ -1,6 +1,5 @@
 
-# Topcast
-## The Open-Source Alternative to Google NotebookLM Audio Overview
+# Topcast: The Open-Source Alternative to Google NotebookLM Audio Overview
 
 Topcast is an open-source Python package that transforms your text into engaging podcast-like audio, much like Google NotebookLM's new "Audio Overview" feature. While Google NotebookLM turns documents and slides into conversations, Topcast gives you the freedom to create podcasts from any text using Text-to-Speech (TTS) and language models, adding layers of sound, structure, and effects to create a comprehensive audio experience.
 

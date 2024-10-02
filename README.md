@@ -13,7 +13,11 @@ With Topcast, you can provide a text, and the package will generate a dynamic au
 - **Multiple TTS Providers**: Choose from Google Cloud, Elevenlabs, or Google Translate TTS, allowing flexibility in voice quality and pricing.
 - **Open-Source and Transparent**: Unlike commercial solutions, you can modify and extend Topcast as per your needs. Your data is your own, and nothing is used without your explicit consent.
 
-https://user-images.githubusercontent.com/53308156/234994155-2921b28a-9caa-46fc-9608-5ef01881713e.mp4
+
+
+https://github.com/user-attachments/assets/88f8d774-7f4d-4f39-b646-1238d689d3c6
+
+
 
 ## Example Implementation
 

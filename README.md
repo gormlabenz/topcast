@@ -2,6 +2,8 @@
 
 Topcast is an open-source Python package that transforms your text into engaging podcast-like audio, much like Google NotebookLM's new "Audio Overview" feature. While Google NotebookLM turns documents and slides into conversations, Topcast gives you the freedom to create podcasts from any text using Text-to-Speech (TTS) and language models, adding layers of sound, structure, and effects to create a comprehensive audio experience.
 
+https://github.com/user-attachments/assets/88f8d774-7f4d-4f39-b646-1238d689d3c6
+
 ## What is Topcast?
 
 With Topcast, you can provide a text, and the package will generate a dynamic audio output that includes introductions, interviews, conclusions, and more. It supports multiple TTS providers and AI-powered language models like ChatGPT to make your podcast rich and diverse. The key difference? Topcast is fully open-source, and you have complete control over the customization of your audio content.
@@ -12,11 +14,6 @@ With Topcast, you can provide a text, and the package will generate a dynamic au
 - **ChatGPT Themes**: Easily transform text into interview-style conversations, summaries, introductions, or conclusions.
 - **Multiple TTS Providers**: Choose from Google Cloud, Elevenlabs, or Google Translate TTS, allowing flexibility in voice quality and pricing.
 - **Open-Source and Transparent**: Unlike commercial solutions, you can modify and extend Topcast as per your needs. Your data is your own, and nothing is used without your explicit consent.
-
-
-
-https://github.com/user-attachments/assets/88f8d774-7f4d-4f39-b646-1238d689d3c6
-
 
 
 ## Example Implementation

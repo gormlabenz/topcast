@@ -15,7 +15,6 @@ With Topcast, you can provide a text, and the package will generate a dynamic au
 - **Multiple TTS Providers**: Choose from Google Cloud, Elevenlabs, or Google Translate TTS, allowing flexibility in voice quality and pricing.
 - **Open-Source and Transparent**: Unlike commercial solutions, you can modify and extend Topcast as per your needs. Your data is your own, and nothing is used without your explicit consent.
 
-
 ## Example Implementation
 
 ```python
@@ -59,7 +58,7 @@ pip install topcast
 
 ```python
 from topcast import (
-    set_elevenlab_api_key,
+    set_elevenlabs_api_key,
     set_google_credentials,
     set_openai_api_key,
     Topcaster,
@@ -68,7 +67,7 @@ from topcast import (
 from topcast.tts_providers import GCP
 from topcast.chatgpt_themes import Summary
 
-set_elevenlab_api_key("XXX-XXX-XXX") # if you want to use elvenlabs for tts
+set_elevenlabs_api_key("XXX-XXX-XXX") # if you want to use elvenlabs for tts
 set_google_credentials("gcp-keyfile.json") # if you want google cloud platform for tts
 set_openai_api_key("XXX-XXX-XXX") # if you want to use a ChatGPT theme
 ```
@@ -194,9 +193,9 @@ from topcast.tts_providers import GCP, Elevenlabs, GTTS
 Next, set the API key or credentials for the provider, if required:
 
 ```python
-from topcast import set_elevenlab_api_key, set_google_credentials
+from topcast import set_elevenlabs_api_key, set_google_credentials
 
-set_elevenlab_api_key("your-elevenlabs-api-key")
+set_elevenlabs_api_key("your-elevenlabs-api-key")
 set_google_credentials("path-to-gcp-keyfile.json")
 ```
 

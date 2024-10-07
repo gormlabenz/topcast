@@ -1,4 +1,4 @@
-from topcast import Topcaster, set_elevenlab_api_key, set_openai_api_key
+from topcast import Topcaster, set_elevenlabs_api_key, set_openai_api_key
 from topcast.chatgpt_themes import Summary
 from topcast.tts_providers import GTTS, ElevenLabs
 

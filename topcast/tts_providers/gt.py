@@ -1,9 +1,11 @@
-from .base import TTSProviderBase
-from ..models import TTSItem
-from gtts import gTTS
-from io import BytesIO
 import asyncio
+from io import BytesIO
+
+from gtts import gTTS
 from pydub import AudioSegment
+
+from ..tts_item import TTSItem
+from .base import TTSProviderBase
 
 
 class GTTS(TTSProviderBase):

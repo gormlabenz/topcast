@@ -4,7 +4,7 @@ from io import BytesIO
 from elevenlabs.client import AsyncElevenLabs
 from pydub import AudioSegment
 
-from ..models import TTSItem
+from ..tts_item import TTSItem
 from .base import TTSProviderBase
 
 

@@ -1,26 +1,25 @@
-from pydantic import BaseModel, Field, validator
-from typing import List, Union, Any, Type, Optional
+from typing import Any, List, Optional, Type, Union
+
+from pydantic import BaseModel, ConfigDict, Field, validator
 from pydub.audio_segment import AudioSegment
 
+from topcast.chatgpt_themes.base import ChatGPTThemeBase
+from topcast.chatgpt_themes.none_theme import NoneTheme
+from topcast.tts_item import TTSItem
+from topcast.tts_providers.base import TTSProviderBase
+from topcast.tts_providers.gt import GTTS
 
-class TTSItem(BaseModel):
-    text: str
-    gender: str
 
 class ChapterData(BaseModel):
-    raw_audio: AudioSegment = None
-    text_list: List[TTSItem] = []
-    audio_list: List[AudioSegment] = []
+    raw_audio: Optional[AudioSegment] = None
+    text_list: List[TTSItem] = Field(default_factory=list)
+    audio_list: List[AudioSegment] = Field(default_factory=list)
 
-    class Config:
-        arbitrary_types_allowed = True
-        
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+
 class AudioItem(BaseModel):
-    from topcast.tts_providers.base import TTSProviderBase
-    from topcast.tts_providers.gt import GTTS 
-    from topcast.chatgpt_themes.base import ChatGPTThemeBase
-    from topcast.chatgpt_themes.none_theme import NoneTheme
-    
+
     content: str
     theme: Optional[Type[ChatGPTThemeBase]] = Field(default=NoneTheme)
     tts_provider: Optional[Type[TTSProviderBase]] = Field(default=GTTS)
@@ -28,18 +27,21 @@ class AudioItem(BaseModel):
     @validator("theme")
     def check_theme_base_class(cls, value):
         from topcast.chatgpt_themes.base import ChatGPTThemeBase
-        
+
         if not issubclass(value, ChatGPTThemeBase):
-            raise ValueError("The provided theme class does not inherit from ChatGPTThemeBase.")
+            raise ValueError(
+                "The provided theme class does not inherit from ChatGPTThemeBase.")
         return value
 
     @validator("tts_provider")
     def check_tts_provider_base_class(cls, value):
         from topcast.tts_providers.base import TTSProviderBase
-        
+
         if not issubclass(value, TTSProviderBase):
-            raise ValueError("The provided TTS provider class does not inherit from TTSProviderBase.")
+            raise ValueError(
+                "The provided TTS provider class does not inherit from TTSProviderBase.")
         return value
+
 
 class AudioLayer(BaseModel):
     audio: Union[str, AudioSegment, AudioItem]
@@ -51,10 +53,11 @@ class AudioLayer(BaseModel):
     padding_end: int = Field(0, ge=0)
     crossfade: int = Field(0, ge=0)
     volume: int = Field(1, ge=0, le=1)
-    
+
     class Config:
         arbitrary_types_allowed = True
-        
+
+
 class Chapter(BaseModel):
     audio_layers: List[AudioLayer]
     fade_in: int = Field(1, ge=1)
@@ -63,6 +66,7 @@ class Chapter(BaseModel):
     padding_end: int = Field(0, ge=0)
     crossfade: int = Field(0, ge=0)
     volume: float = Field(1, ge=0, le=1)
+
 
 class Timeline(BaseModel):
     timeline: List[Chapter]

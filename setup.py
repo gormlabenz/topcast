@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -33,6 +33,39 @@ setup(
         "pydub",
         "elevenlabs",
         "google-cloud-texttospeech",
-        "gTTS"
+        "gTTS",
+        "annotated-types",
+        "anyio",
+        "build",
+        "cachetools",
+        "certifi",
+        "charset-normalizer",
+        "click",
+        "distro",
+        "google-api-core",
+        "google-auth",
+        "google-cloud-speech",
+        "googleapis-common-protos",
+        "grpcio",
+        "grpcio-status",
+        "h11",
+        "httpcore",
+        "httpx",
+        "idna",
+        "jiter",
+        "packaging",
+        "pip-tools",
+        "proto-plus",
+        "pyasn1",
+        "pyasn1_modules",
+        "pydantic_core",
+        "pyproject_hooks",
+        "requests",
+        "rsa",
+        "sniffio",
+        "tqdm",
+        "typing_extensions",
+        "urllib3",
+        "websockets"
     ],
 )

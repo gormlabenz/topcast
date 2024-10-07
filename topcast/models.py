@@ -7,6 +7,7 @@ from topcast.chatgpt_themes.base import ChatGPTThemeBase
 from topcast.chatgpt_themes.none_theme import NoneTheme
 from topcast.tts_item import TTSItem
 from topcast.tts_providers.base import TTSProviderBase
+from topcast.tts_providers.cgpt import CGPT
 from topcast.tts_providers.gt import GTTS
 
 

@@ -1,10 +1,12 @@
-from .base import TTSProviderBase
-from ..models import TTSItem
-
 import asyncio
-from elevenlabs import generate
-from pydub import AudioSegment
 from io import BytesIO
+
+from elevenlabs.client import AsyncElevenLabs
+from pydub import AudioSegment
+
+from ..models import TTSItem
+from .base import TTSProviderBase
+
 
 class ElevenLabs(TTSProviderBase):
     def __init__(self):
@@ -13,12 +15,13 @@ class ElevenLabs(TTSProviderBase):
             'male': "Adam",
             'female': "Bella"
         }
+        self.client = AsyncElevenLabs()  # Initialize the async client
 
     async def tts(self, tts_text: TTSItem):
         voice = self.get_voice(tts_text.gender)
-        
-        def _synthesize_speech():
-          return  AudioSegment.from_file(BytesIO(generate(text=tts_text.text, voice=voice)))
-    
-    # Run the synchronous Text-to-Speech code in a separate thread
-        return await asyncio.to_thread(_synthesize_speech)
+
+        async def _synthesize_speech():
+            audio = await self.client.generate(text=tts_text.text, voice=voice)
+            return AudioSegment.from_file(BytesIO(audio))
+
+        return await _synthesize_speech()

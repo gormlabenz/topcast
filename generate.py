@@ -1,13 +1,10 @@
-from topcast import Topcaster, set_openai_api_key, set_elevenlab_api_key
+from topcast import Topcaster, set_elevenlab_api_key, set_openai_api_key
 from topcast.chatgpt_themes import Summary
-from topcast.tts_providers import  ElevenLabs, GTTS
-
-set_openai_api_key("7a8f7e9bbc46dcfaa0d5634b1dfeb634")
-set_elevenlab_api_key("7a8f7e9bbc46dcfaa0d5634b1dfeb634")
+from topcast.tts_providers import GTTS, ElevenLabs
 
 topcast = Topcaster()
 
-topcast.add_chapter(audio_layers=[{ "audio" : "sounds/jingle.wav" }])
+# topcast.add_chapter(audio_layers=[{"audio": "sounds/jingle.wav"}])
 topcast.add_chapter(
     audio_layers=[
         {

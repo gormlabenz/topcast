@@ -12,16 +12,18 @@ class ElevenLabs(TTSProviderBase):
     def __init__(self):
         super().__init__()
         self.voices = {
-            'male': "Adam",
-            'female': "Bella"
+            'male': "George",
+            'female': "Laura"
         }
-        self.client = AsyncElevenLabs()  # Initialize the async client
+        self.client = AsyncElevenLabs()
 
     async def tts(self, tts_text: TTSItem):
         voice = self.get_voice(tts_text.gender)
 
         async def _synthesize_speech():
-            audio = await self.client.generate(text=tts_text.text, voice=voice)
+            audio_generator = await self.client.generate(text=tts_text.text, voice=voice)
+            audio_chunks = [chunk async for chunk in audio_generator]
+            audio = b''.join(audio_chunks)
             return AudioSegment.from_file(BytesIO(audio))
 
         return await _synthesize_speech()

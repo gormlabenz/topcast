@@ -1,8 +1,12 @@
 {
   "cSpell.words": [
+    "crossfade",
     "GTTS",
     "openai",
+    "pydub",
     "texttospeech",
+    "topcast",
+    "Topcaster",
     "wikipedia",
     "wikipediaapi"
   ]

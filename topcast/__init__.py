@@ -1,5 +1,5 @@
-from .topcaster import Topcaster
 from .models import Timeline
+from .topcaster import Topcaster
 
 
 def generate(timeline: Timeline):
@@ -15,6 +15,7 @@ def set_elevenlabs_api_key(api_key: str):
 
 def set_openai_api_key(api_key: str):
     import openai
+    openai.api_key = api_key
 
 
 def set_google_credentials(filename: str):

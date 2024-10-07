@@ -1,6 +1,6 @@
 from topcast import Topcaster, set_elevenlabs_api_key, set_openai_api_key
 from topcast.chatgpt_themes import Summary
-from topcast.tts_providers import GTTS, ElevenLabs
+from topcast.tts_providers import CGPT, GTTS, ElevenLabs
 
 topcast = Topcaster()
 
@@ -11,11 +11,11 @@ topcast.add_chapter(
             "audio": {
                 "content": "Topcast is a Python package that allows you to transform text into a podcast using Text-to-Speech (TTS) and language models. With Topcast, you can provide a text, and the package will create a podcast with an introduction, interview, conclusion, sound effects, and more. Topcast supports various TTS providers and language models.",
                 "theme": Summary,
-                "tts_provider": ElevenLabs
+                "tts_provider": CGPT
             },
         },
     ],
 )
 
 topcast.generate()
-topcast.export("podcast_topcast_2.wav", format="wav")
+topcast.export("podcast_topcast_3.wav", format="wav")
